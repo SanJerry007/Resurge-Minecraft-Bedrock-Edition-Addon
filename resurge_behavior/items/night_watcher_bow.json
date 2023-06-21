@@ -1,0 +1,65 @@
+{
+	"format_version": "1.16.100",
+	"minecraft:item": {
+		"description": {
+			"identifier": "resurge:night_watcher_bow",
+			"category": "equipment"
+		},
+		"components": {
+			"minecraft:max_stack_size": 1,
+			"minecraft:hand_equipped": true,
+			"minecraft:can_destroy_in_creative": false,
+
+			//"minecraft:frame_count": 3,
+			//"minecraft:animates_in_toolbar": false,
+
+			"minecraft:use_duration": 1.0,
+			"minecraft:durability": {
+				"max_durability": 288
+			},
+			"minecraft:enchantable": {
+				"slot": "bow",
+				"value": 1
+			},
+			"minecraft:repairable": {
+				"repair_items": [
+					{
+						"items": ["resurge:moon_rock"],
+						"repair_amount": 50,
+						"on_repaired": {
+							"event": "resurge:random_thunder_attack",
+							"target": "holder"
+						}
+					},
+					{
+						"items": ["resurge:night_watcher"],
+						"repair_amount": "query.remaining_durability",
+						"on_repaired": {
+							"event": "resurge:random_thunder_attack",
+							"target": "holder"
+						}
+					}
+				]
+			},
+			"minecraft:shooter": {
+				"ammunition": [
+					{
+						"item": "minecraft:arrow<resurge:player_night_watcher_bow_arrow>",
+						"use_offhand": true,
+						"search_inventory": true,
+						"use_in_creative": true
+					}
+				],
+				"max_draw_duration": 1.0,
+				"scale_power_by_draw_duration": true
+			},
+
+			"minecraft:icon": {
+				"texture": "night_watcher_bow_standby"
+			},
+			"minecraft:display_name": {
+				"value": "§b守夜人§r"
+			}
+		}
+	}
+}

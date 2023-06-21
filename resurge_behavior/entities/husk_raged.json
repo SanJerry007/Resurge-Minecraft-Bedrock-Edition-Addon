@@ -1,0 +1,1794 @@
+{
+	"format_version": "1.17.20",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "resurge:husk_raged",
+			"is_spawnable": true,
+			"is_summonable": true,
+			"is_experimental": false,
+			"runtime_identifier": "minecraft:husk",
+
+			"scripts": {
+				"animate": [
+					"desertification",
+					"wet_detector",
+					"biome_detector",
+					"random_hunt",
+					"full_moon_stage"
+				]
+			},
+			"animations": {
+				"desertification": "animation.entity.husk.desertification",
+				"wet_detector": "controller.animation.entity.normal.wet_detector",
+				"biome_detector": "controller.animation.entity.husk.biome_detector",
+				"random_hunt": "controller.animation.entity.raged.random_hunt",
+				"full_moon_stage": "controller.animation.entity.raged.full_moon_stage"
+			}
+		},
+
+		"component_groups": {
+			"resurge:husk_raged_baby": {
+				"minecraft:experience_reward": {
+					"on_death": "query.last_hit_by_player ? 28 + (query.equipment_count * Math.Random(1,12)) : Math.Random(0,1)"
+				},
+				"minecraft:is_baby": {},
+				"minecraft:scale": {
+					"value": 0.5
+				},
+				"minecraft:movement": {
+					"value": 0.6
+				}
+			},
+			"resurge:husk_raged_adult": {
+				"minecraft:experience_reward": {
+					"on_death": "query.last_hit_by_player ? 14 + (query.equipment_count * Math.Random(1,6)) : Math.Random(0,1)"
+				},
+				"minecraft:movement": {
+					"value": 0.4
+				},
+				"minecraft:rideable": {
+					"seat_count": 1,
+					"family_types": ["zombie"],
+					"seats": {
+						"position": [0.0, 1.1, -0.35],
+						"lock_rider_rotation": 0
+					}
+				},
+				"minecraft:behavior.mount_pathing": {
+					"priority": 2,
+					"speed_multiplier": 1.0,
+					"target_dist": 0.0,
+					"track_target": true
+				}
+			},
+			"resurge:husk_raged_jockey": {
+				"minecraft:behavior.find_mount": {
+					"priority": 1,
+					"within_radius": 16
+				}
+			},
+
+			"resurge:moon_variant": {
+				"minecraft:variant": {
+					"value": 1
+				}
+			},
+
+			"resurge:dry_movement_baby": {
+				"minecraft:movement": {
+					"value": 0.6
+				}
+			},
+			"resurge:dry_movement_adult": {
+				"minecraft:movement": {
+					"value": 0.4
+				}
+			},
+			"resurge:wet_movement_baby": {
+				"minecraft:movement": {
+					"value": 0.51
+				}
+			},
+			"resurge:wet_movement_adult": {
+				"minecraft:movement": {
+					"value": 0.34
+				}
+			},
+
+			"resurge:out_biome_normal_knockback": {
+				"minecraft:knockback_resistance": {
+					"value": 0.32
+				}
+			},
+			"resurge:out_biome_hunt_knockback": {
+				"minecraft:knockback_resistance": {
+					"value": 0.48
+				}
+			},
+			"resurge:in_biome_normal_knockback": {
+				"minecraft:knockback_resistance": {
+					"value": 0.48
+				}
+			},
+			"resurge:in_biome_hunt_knockback": {
+				"minecraft:knockback_resistance": {
+					"value": 0.64
+				}
+			},
+
+			"resurge:out_biome_property": {
+				"minecraft:attack": {
+					"damage": 7,
+					"effect_name": "hunger",
+					"effect_duration": 40
+				}
+			},
+			"resurge:in_biome_property": {
+				"minecraft:attack": {
+					"damage": 9,
+					"effect_name": "hunger",
+					"effect_duration": 60
+				},
+				"minecraft:mob_effect": {
+					"cooldown_time": 4.0,
+					"entity_filter": {
+						"test": "is_target",
+						"subject": "other"
+					},
+					"effect_range": 6,
+					"effect_time": 16,
+					"mob_effect": "weakness"
+				}
+			},
+
+			"resurge:normal_mark": {
+				"minecraft:mark_variant": {
+					"value": 0 //标识普通状态
+				}
+			},
+			"resurge:normal_break_blocks": {
+				"minecraft:break_blocks": {
+					"breakable_blocks": [
+						"web",
+						"cactus",
+						"bamboo",
+						"sweet_berry_bush",
+						"powder_snow",
+
+						//###动物与植物类物品
+						//#半实心方块
+						"bamboo",
+						"cactus",
+						"chorus_plant",
+						"cocoa",
+						"waterlily",
+
+						//#全透明方块
+						"vine",
+						"glow_lichen",
+						"hanging_roots",
+						"azalea",
+						"flowering_azalea",
+						"beetroot",
+						"carrots",
+						"cave_vines",
+						"cave_vines_body_with_berries",
+						"cave_vines_head_with_berries",
+						"deadbush",
+						"yellow_flower",
+						"red_flower",
+						"double_plant",
+						"wither_rose",
+						"crimson_fungus",
+						"warped_fungus",
+						"tallgrass",
+						"double_plant",
+						"kelp",
+						"melon_stem",
+						"brown_mushroom",
+						"red_mushroom",
+						"nether_sprouts",
+						"nether_wart",
+						"potatoes",
+						"pumpkin_stem",
+						"crimson_roots",
+						"warped_roots",
+						"sapling",
+						"seagrass",
+						"sea_pickle",
+						"big_dripleaf",
+						"small_dripleaf_block",
+						"spore_blossom",
+						"reeds",
+						"sweet_berry_bush",
+						"twisting_vines",
+						"weeping_vines",
+						"wheat",
+						"mangrove_propagule",
+
+						//###其它装饰性方块
+						//#半实心方块
+						"turtle_egg"
+					]
+				}
+			},
+			"resurge:hunt_mark": {
+				"minecraft:mark_variant": {
+					"value": 1 //标识猎杀状态
+				}
+			},
+			"resurge:hunt_break_blocks": {
+				"minecraft:break_blocks": {
+					"breakable_blocks": [
+						//###怪物基础可破坏物品
+						"web",
+						"cactus",
+						"bamboo",
+						"sweet_berry_bush",
+						"powder_snow",
+
+						//###工作类方块
+						//#方块(不重要)
+						"crafting_table",
+						"stonecutter_block",
+						"cartography_table",
+						"lectern",
+						"fletching_table",
+						"smithing_table",
+						"loom",
+						"bookshelf",
+						"composter",
+
+						//###红石类物品
+						//#绊线钩
+						"tripwire",
+						"tripwire_hook",
+						//#活塞
+						"piston",
+						"sticky_piston",
+						"pistonArmCollision",
+						"stickyPistonArmCollision",
+
+						//###木质方块
+						//#原木、去皮原木
+						"log",
+						"log2",
+						"crimson_stem",
+						"warped_stem",
+						"stripped_spruce_log",
+						"stripped_birch_log",
+						"stripped_jungle_log",
+						"stripped_acacia_log",
+						"stripped_dark_oak_log",
+						"stripped_oak_log",
+						"stripped_crimson_stem",
+						"stripped_warped_stem",
+						"mangrove_log",
+						"stripped_mangrove_log",
+						//#木头
+						"wood",
+						"crimson_hyphae",
+						"warped_hyphae",
+						"stripped_crimson_hyphae",
+						"stripped_warped_hyphae",
+						"mangrove_wood",
+						"stripped_mangrove_wood",
+						//#木板
+						"planks",
+						"crimson_planks",
+						"warped_planks",
+						"mangrove_planks",
+						//#半砖
+						"double_wooden_slab",
+						"wooden_slab",
+						"crimson_double_slab",
+						"crimson_slab",
+						"warped_double_slab",
+						"warped_slab",
+						"mangrove_double_slab",
+						"mangrove_slab",
+						//#楼梯
+						"oak_stairs",
+						"spruce_stairs",
+						"birch_stairs",
+						"jungle_stairs",
+						"acacia_stairs",
+						"dark_oak_stairs",
+						"crimson_stairs",
+						"warped_stairs",
+						"mangrove_stairs",
+						//#栅栏
+						"fence",
+						"crimson_fence",
+						"warped_fence",
+						"mangrove_fence",
+						//#栅栏门
+						"fence_gate",
+						"spruce_fence_gate",
+						"birch_fence_gate",
+						"jungle_fence_gate",
+						"acacia_fence_gate",
+						"dark_oak_fence_gate",
+						"crimson_fence_gate",
+						"warped_fence_gate",
+						"mangrove_fence_gate",
+						//#活板门
+						"trapdoor",
+						"spruce_trapdoor",
+						"birch_trapdoor",
+						"jungle_trapdoor",
+						"acacia_trapdoor",
+						"dark_oak_trapdoor",
+						"crimson_trapdoor",
+						"warped_trapdoor",
+						"mangrove_trapdoor",
+						//#门
+						"wooden_door",
+						"spruce_door",
+						"birch_door",
+						"jungle_door",
+						"acacia_door",
+						"dark_oak_door",
+						"crimson_door",
+						"warped_door",
+						"mangrove_door",
+						//#告示牌
+						"standing_sign",
+						"spruce_standing_sign",
+						"birch_standing_sign",
+						"jungle_standing_sign",
+						"acacia_standing_sign",
+						"darkoak_standing_sign",
+						"crimson_standing_sign",
+						"warped_standing_sign",
+						"wall_sign",
+						"spruce_wall_sign",
+						"birch_wall_sign",
+						"jungle_wall_sign",
+						"acacia_wall_sign",
+						"darkoak_wall_sign",
+						"crimson_wall_sign",
+						"warped_wall_sign",
+						"mangrove_standing_sign",
+						"mangrove_wall_sign",
+						//#梯子
+						"ladder",
+
+						//###硬度[0,1]的方块
+						//#楼梯
+						"quartz_stairs",
+						"smooth_quartz_stairs",
+						"sandstone_stairs",
+						"smooth_sandstone_stairs",
+						"red_sandstone_stairs",
+						"smooth_red_sandstone_stairs",
+						//#方块
+						"quartz_block",
+						"quartz_bricks",
+						"sandstone",
+						"red_sandstone",
+						"calcite",
+						"wool",
+						"grass_path",
+						"clay",
+						"farmland",
+						"grass",
+						"gravel",
+						"mycelium",
+						"sponge",
+						"dirt",
+						"dirt_with_roots",
+						"concretepowder",
+						"ice",
+						"magma",
+						"packed_ice",
+						"frosted_ice",
+						"podzol",
+						"sand",
+						"soul_sand",
+						"soul_soil",
+						"netherrack",
+						"crimson_nylium",
+						"warped_nylium",
+						"snow",
+						"moss_block",
+						"monster_egg",
+						"infested_deepslate",
+						"tnt",
+						"sculk",
+						"mangrove_roots",
+						"muddy_mangrove_roots",
+						"mud",
+						"packed_mud",
+						//#半实心方块
+						"snow_layer",
+						//#全透明方块
+						"scaffolding",
+						"powder_snow",
+
+						//###硬度(1,2)的方块
+						//#半砖
+						"blackstone_double_slab",
+						"blackstone_slab",
+						"polished_blackstone_brick_double_slab",
+						"polished_blackstone_brick_slab",
+						"mud_brick_double_slab",
+						"mud_brick_slab",
+						//#半砖（注：包含许多不符合条件的方块）
+						"double_stone_slab",
+						"stone_slab",
+						"double_stone_slab2",
+						"stone_slab2",
+						"double_stone_slab3",
+						"stone_slab3",
+						"double_stone_slab4",
+						"stone_slab4",
+						//#墙
+						"blackstone_wall",
+						"polished_blackstone_brick_wall",
+						"mud_brick_wall",
+						//#墙（注：包含许多不符合条件的方块）
+						"cobblestone_wall",
+						//#楼梯
+						"normal_stone_stairs", //石头
+						"granite_stairs",
+						"polished_granite_stairs",
+						"diorite_stairs",
+						"polished_diorite_stairs",
+						"andesite_stairs",
+						"polished_andesite_stairs",
+						"stone_brick_stairs",
+						"mossy_stone_brick_stairs",
+						"sandstone_stairs",
+						"smooth_sandstone_stairs",
+						"red_sandstone_stairs",
+						"smooth_red_sandstone_stairs",
+						"purpur_stairs",
+						"prismarine_stairs",
+						"prismarine_bricks_stairs",
+						"dark_prismarine_stairs",
+						"blackstone_stairs",
+						"polished_blackstone_brick_stairs",
+						"mud_brick_stairs",
+						//#方块
+						"concrete",
+						"stone",
+						"blackstone",
+						"amethyst_block",
+						"budding_amethyst",
+						"dripstone_block",
+						"polished_blackstone_bricks",
+						"cracked_polished_blackstone_bricks",
+						"gilded_blackstone",
+						"coral_block",
+						"prismarine",
+						"stonebrick",
+						"purpur_block",
+						"tuff",
+						"white_glazed_terracotta",
+						"orange_glazed_terracotta",
+						"magenta_glazed_terracotta",
+						"light_blue_glazed_terracotta",
+						"yellow_glazed_terracotta",
+						"lime_glazed_terracotta",
+						"pink_glazed_terracotta",
+						"gray_glazed_terracotta",
+						"silver_glazed_terracotta",
+						"cyan_glazed_terracotta",
+						"purple_glazed_terracotta",
+						"blue_glazed_terracotta",
+						"brown_glazed_terracotta",
+						"green_glazed_terracotta",
+						"red_glazed_terracotta",
+						"black_glazed_terracotta",
+						"hardened_clay",
+						"stained_hardened_clay",
+						"basalt",
+						"polished_basalt",
+						"smooth_basalt",
+						"mud_bricks",
+						//#非实心方块
+						"small_amethyst_bud",
+						"medium_amethyst_bud",
+						"large_amethyst_bud",
+						"amethyst_cluster",
+
+						//###硬度2的方块
+						//#楼梯
+						"stone_stairs", //圆石
+						"mossy_cobblestone_stairs",
+						//#方块
+						"cobblestone",
+						"mossy_cobblestone",
+
+						//###动物与植物类物品
+						//#方块
+						"melon_block",
+						"nether_wart_block",
+						"warped_wart_block",
+						"pumpkin",
+						"bee_nest",
+						"beehive",
+						"chorus_flower",
+						"brown_mushroom_block",
+						"red_mushroom_block",
+						"leaves",
+						"leaves2",
+						"azalea_leaves",
+						"azalea_leaves_flowered",
+						"mangrove_leaves",
+						//#半实心方块
+						"bamboo",
+						"cactus",
+						"chorus_plant",
+						"cocoa",
+						"waterlily",
+						//#全透明方块
+						"vine",
+						"glow_lichen",
+						"hanging_roots",
+						"azalea",
+						"flowering_azalea",
+						"beetroot",
+						"carrots",
+						"cave_vines",
+						"cave_vines_body_with_berries",
+						"cave_vines_head_with_berries",
+						"deadbush",
+						"yellow_flower",
+						"red_flower",
+						"double_plant",
+						"wither_rose",
+						"crimson_fungus",
+						"warped_fungus",
+						"tallgrass",
+						"double_plant",
+						"kelp",
+						"melon_stem",
+						"brown_mushroom",
+						"red_mushroom",
+						"nether_sprouts",
+						"nether_wart",
+						"potatoes",
+						"pumpkin_stem",
+						"crimson_roots",
+						"warped_roots",
+						"sapling",
+						"seagrass",
+						"sea_pickle",
+						"big_dripleaf",
+						"small_dripleaf_block",
+						"spore_blossom",
+						"reeds",
+						"sweet_berry_bush",
+						"twisting_vines",
+						"weeping_vines",
+						"wheat",
+						"mangrove_propagule",
+
+						//###其它装饰性方块
+						//#方块
+						"lit_pumpkin",
+						"carved_pumpkin",
+						"shroomlight",
+						"honeycomb_block",
+						"hay_block",
+						"dried_kelp_block",
+						"glass",
+						"stained_glass",
+						"tinted_glass",
+						"glowstone",
+						"sealantern",
+						"honey_block",
+						"slime",
+						//#半实心方块
+						"turtle_egg"
+					]
+				}
+			},
+			"resurge:hunt_timer": {
+				"minecraft:timer": {
+					"looping": false,
+					"time": 8.0,
+					"time_down_event": {
+						"event": "resurge:normal_mode"
+					}
+				}
+			},
+
+			"resurge:moon_calm_timer": {
+				"minecraft:timer": {
+					"looping": false,
+					"time": [0, 30],
+					"time_down_event": {
+						"event": "resurge:calm"
+					}
+				},
+				"minecraft:is_shaking": {}
+			},
+
+			"resurge:adult_calm": {
+				"minecraft:transformation": {
+					"into": "minecraft:husk<minecraft:as_adult>",
+					"preserve_equipment": true
+				}
+			},
+			"resurge:baby_calm": {
+				"minecraft:transformation": {
+					"into": "minecraft:husk<minecraft:as_baby>",
+					"preserve_equipment": true
+				}
+			},
+			"resurge:baby_jockey_calm": {
+				"minecraft:transformation": {
+					"into": "minecraft:husk<resurge:as_baby_jockey>",
+					"preserve_equipment": true
+				}
+			}
+		},
+
+		"components": {
+			"minecraft:is_hidden_when_invisible": {},
+			"minecraft:breathable": {
+				"total_supply": 15,
+				"suffocate_time": 0,
+				"breathes_water": true
+			},
+			"minecraft:equip_item": {},
+			"minecraft:collision_box": {
+				"width": 0.6,
+				"height": 1.9
+			},
+			"minecraft:nameable": {},
+
+			"minecraft:type_family": {
+				"family": [
+					"husk_raged",
+					"zombie_raged",
+					"raged",
+					"husk",
+					"zombie",
+					"undead",
+					"monster",
+					"mob"
+				]
+			},
+			"minecraft:break_blocks": {
+				"breakable_blocks": [
+					//###怪物基础可破坏物品
+					"web",
+					"cactus",
+					"bamboo",
+					"sweet_berry_bush",
+					"powder_snow",
+
+					//###动物与植物类物品
+					//#半实心方块
+					"bamboo",
+					"cactus",
+					"chorus_plant",
+					"cocoa",
+					"waterlily",
+
+					//#全透明方块
+					"vine",
+					"glow_lichen",
+					"hanging_roots",
+					"azalea",
+					"flowering_azalea",
+					"beetroot",
+					"carrots",
+					"cave_vines",
+					"cave_vines_body_with_berries",
+					"cave_vines_head_with_berries",
+					"deadbush",
+					"yellow_flower",
+					"red_flower",
+					"double_plant",
+					"wither_rose",
+					"crimson_fungus",
+					"warped_fungus",
+					"tallgrass",
+					"double_plant",
+					"kelp",
+					"melon_stem",
+					"brown_mushroom",
+					"red_mushroom",
+					"nether_sprouts",
+					"nether_wart",
+					"potatoes",
+					"pumpkin_stem",
+					"crimson_roots",
+					"warped_roots",
+					"sapling",
+					"seagrass",
+					"sea_pickle",
+					"big_dripleaf",
+					"small_dripleaf_block",
+					"spore_blossom",
+					"reeds",
+					"sweet_berry_bush",
+					"twisting_vines",
+					"weeping_vines",
+					"wheat",
+					"mangrove_propagule"
+				]
+			},
+			"minecraft:loot": {
+				"table": "loot_tables/entities/husk_raged.json"
+			},
+			"minecraft:equipment": {
+				"table": "loot_tables/entities/zombie_equipment.json"
+			},
+
+			"minecraft:health": {
+				"value": 60,
+				"max": 60
+			},
+			"minecraft:fire_immune": {},
+			"minecraft:attack": {
+				"damage": 7,
+				"effect_name": "hunger",
+				"effect_duration": 40
+			},
+			"minecraft:knockback_resistance": {
+				"value": 0.32
+			},
+			"minecraft:conditional_bandwidth_optimization": {},
+
+			"minecraft:navigation.climb": {
+				"is_amphibious": true,
+				"can_pass_doors": true,
+				"can_walk": true,
+				"can_break_doors": true,
+				"can_walk_in_lava": true
+			},
+			"minecraft:movement.basic": {
+				"max_turn": 60.0
+			},
+			"minecraft:annotation.break_door": {
+				"break_time": 1
+			},
+			"minecraft:preferred_path": {
+				"max_fall_blocks": 20
+			},
+			"minecraft:jump.static": {},
+			"minecraft:can_climb": {},
+			"minecraft:shareables": {
+				"items": [
+					{
+						"item": "minecraft:trident",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 0
+					},
+
+					{
+						"item": "minecraft:netherite_sword",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 0
+					},
+					{
+						"item": "minecraft:diamond_sword",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 1
+					},
+					{
+						"item": "minecraft:iron_sword",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 2
+					},
+					{
+						"item": "minecraft:stone_sword",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 3
+					},
+					{
+						"item": "minecraft:golden_sword",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 4
+					},
+					{
+						"item": "minecraft:wooden_sword",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 5
+					},
+					{
+						"item": "minecraft:netherite_helmet",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 0
+					},
+					{
+						"item": "minecraft:diamond_helmet",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 1
+					},
+					{
+						"item": "minecraft:iron_helmet",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 2
+					},
+					{
+						"item": "minecraft:chainmail_helmet",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 3
+					},
+					{
+						"item": "minecraft:golden_helmet",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 4
+					},
+					{
+						"item": "minecraft:leather_helmet",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 5
+					},
+					{
+						"item": "minecraft:turtle_helmet",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 6
+					},
+					{
+						"item": "minecraft:skull:0",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 7
+					},
+					{
+						"item": "minecraft:skull:1",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 7
+					},
+					{
+						"item": "minecraft:carved_pumpkin",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 7
+					},
+					{
+						"item": "minecraft:netherite_chestplate",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 0
+					},
+					{
+						"item": "minecraft:diamond_chestplate",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 1
+					},
+					{
+						"item": "minecraft:iron_chestplate",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 2
+					},
+					{
+						"item": "minecraft:chainmail_chestplate",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 3
+					},
+					{
+						"item": "minecraft:golden_chestplate",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 4
+					},
+					{
+						"item": "minecraft:leather_chestplate",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 5
+					},
+					{
+						"item": "minecraft:netherite_leggings",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 0
+					},
+					{
+						"item": "minecraft:diamond_leggings",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 1
+					},
+					{
+						"item": "minecraft:iron_leggings",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 2
+					},
+					{
+						"item": "minecraft:chainmail_leggings",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 3
+					},
+					{
+						"item": "minecraft:golden_leggings",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 4
+					},
+					{
+						"item": "minecraft:leather_leggings",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 5
+					},
+					{
+						"item": "minecraft:netherite_boots",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 0
+					},
+					{
+						"item": "minecraft:diamond_boots",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 1
+					},
+					{
+						"item": "minecraft:iron_boots",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 2
+					},
+					{
+						"item": "minecraft:chainmail_boots",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 3
+					},
+					{
+						"item": "minecraft:golden_boots",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 4
+					},
+					{
+						"item": "minecraft:leather_boots",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 5
+					}
+				]
+			},
+
+			"minecraft:despawn": {
+				"despawn_from_distance": {}
+			},
+
+			"minecraft:follow_range": {
+				"value": 60,
+				"max": 60
+			},
+
+			"minecraft:behavior.equip_item": {
+				"priority": 2
+			},
+			"minecraft:behavior.melee_attack": {
+				"priority": 3,
+				"speed_multiplier": 1.0,
+				"track_target": true,
+				"reach_multiplier": 2.0
+			},
+			"minecraft:behavior.stomp_turtle_egg": {
+				"priority": 4,
+				"speed_multiplier": 1,
+				"search_range": 10,
+				"search_height": 2,
+				"goal_radius": 1.14,
+				"interval": 20
+			},
+			"minecraft:behavior.move_to_land": {
+				"priority": 5,
+				"search_range": 12
+			},
+			"minecraft:behavior.pickup_items": {
+				"priority": 6,
+				"max_dist": 6,
+				"goal_radius": 3,
+				"speed_multiplier": 1.0,
+				"pickup_based_on_chance": true,
+				"can_pickup_any_item": true,
+				"excluded_items": [
+					"minecraft:glow_ink_sac",
+					"minecraft:string",
+					"minecraft:cactus",
+					"minecraft:bamboo",
+					"minecraft:sweet_berries",
+					"minecraft:pointed_dripstone"
+				]
+			},
+			"minecraft:behavior.random_stroll": {
+				"priority": 7,
+				"speed_multiplier": 1
+			},
+			"minecraft:behavior.look_at_player": {
+				"priority": 8,
+				"look_distance": 6,
+				"probability": 0.02
+			},
+			"minecraft:behavior.random_look_around": {
+				"priority": 9
+			},
+			"minecraft:behavior.hurt_by_target": {
+				"priority": 1,
+				"alert_same_type": true,
+				"entity_types": [
+					{
+						"filters": {
+							"all_of": [
+								{
+									"test": "is_family",
+									"subject": "other",
+									"operator": "!=",
+									"value": "zombie"
+								},
+								{
+									"test": "is_family",
+									"subject": "other",
+									"operator": "!=",
+									"value": "witch"
+								},
+								{
+									"test": "is_family",
+									"subject": "other",
+									"operator": "!=",
+									"value": "raged"
+								}
+							]
+						}
+					}
+				]
+			},
+			"minecraft:behavior.nearest_attackable_target": {
+				"priority": 2,
+				"must_reach": false,
+				"must_see": false, //因filter内部进行了定义，此处实际无效
+				"must_see_forget_duration": 20.0,
+				"persist_time": 5,
+				"reselect_targets": true,
+				"within_radius": 60.0, //因定义了follow_range，此处实际无效
+				"entity_types": [
+					{
+						"filters": {
+							"any_of": [
+								{
+									"test": "is_family",
+									"subject": "other",
+									"value": "player"
+								},
+								{
+									"test": "is_family",
+									"subject": "other",
+									"value": "friend"
+								},
+								{
+									"all_of": [
+										{
+											"test": "is_family",
+											"subject": "other",
+											"value": "human"
+										},
+										{
+											"test": "is_family",
+											"subject": "other",
+											"operator": "!=",
+											"value": "witch"
+										}
+									]
+								},
+								{
+									"test": "is_family",
+									"subject": "other",
+									"value": "darkness"
+								}
+							]
+						},
+						"max_dist": 40,
+						"must_see": false
+					},
+					{
+						"filters": {
+							"any_of": [
+								{
+									"test": "is_family",
+									"subject": "other",
+									"value": "allay"
+								},
+								{
+									"test": "is_family",
+									"subject": "other",
+									"value": "bee"
+								},
+								{
+									"test": "is_family",
+									"subject": "other",
+									"value": "turtle"
+								}
+							]
+						},
+						"max_dist": 40,
+						"must_see": true
+					}
+				]
+			},
+
+			"minecraft:damage_sensor": {
+				"triggers": [
+					{
+						"on_damage": {
+							"filters": {
+								"any_of": [
+									{
+										"test": "is_biome",
+										"subject": "self",
+										"value": "desert"
+									},
+									{
+										"test": "is_biome",
+										"subject": "self",
+										"value": "beach"
+									}
+								]
+							}
+						},
+						"damage_multiplier": 0.84
+					},
+					{
+						"damage_multiplier": 0.92
+					}
+				]
+			},
+			"minecraft:on_death": {
+				"filters": {
+					"all_of": [
+						{
+							"test": "moon_intensity",
+							"value": 1.0
+						},
+						{
+							"test": "is_daytime",
+							"value": false
+						}
+					]
+				},
+				"event": "resurge:moon_loot",
+				"target": "self"
+			},
+
+			"minecraft:physics": {},
+			"minecraft:pushable": {
+				"is_pushable": true,
+				"is_pushable_by_piston": true
+			}
+		},
+
+		"events": {
+			"minecraft:entity_spawned": {
+				"randomize": [
+					{
+						"weight": 940,
+						"remove": {},
+						"add": {
+							"component_groups": ["resurge:husk_raged_adult"]
+						}
+					},
+					{
+						"weight": 50,
+						"remove": {},
+						"add": {
+							"component_groups": ["resurge:husk_raged_baby"]
+						}
+					},
+					{
+						"weight": 10,
+						"remove": {},
+						"add": {
+							"component_groups": [
+								"resurge:husk_raged_baby",
+								"resurge:husk_raged_jockey"
+							]
+						}
+					}
+				]
+			},
+			"resurge:as_adult": {
+				"add": {
+					"component_groups": ["resurge:husk_raged_adult"]
+				}
+			},
+			"resurge:as_baby": {
+				"add": {
+					"component_groups": ["resurge:husk_raged_baby"]
+				}
+			},
+			"resurge:as_baby_jockey": {
+				"add": {
+					"component_groups": ["resurge:husk_raged_baby", "resurge:husk_raged_jockey"]
+				}
+			},
+
+			"resurge:as_adult_moon": {
+				"add": {
+					"component_groups": ["resurge:husk_raged_adult", "resurge:moon_variant"]
+				}
+			},
+			"resurge:as_baby_moon": {
+				"add": {
+					"component_groups": ["resurge:husk_raged_baby", "resurge:moon_variant"]
+				}
+			},
+			"resurge:as_baby_jockey_moon": {
+				"add": {
+					"component_groups": [
+						"resurge:husk_raged_baby",
+						"resurge:husk_raged_jockey",
+						"resurge:moon_variant"
+					]
+				}
+			},
+
+			"resurge:moon_loot": {
+				"run_command": {
+					"command": ["loot spawn ~~~ loot \"specials/moon_loot\""]
+				}
+			},
+
+			"resurge:become_dry": {
+				"sequence": [
+					{
+						"filters": {
+							"test": "has_component",
+							"operator": "!=",
+							"value": "minecraft:is_baby"
+						},
+						"add": {
+							"component_groups": ["resurge:dry_movement_adult"]
+						},
+						"remove": {
+							"component_groups": ["resurge:wet_movement_adult"]
+						}
+					},
+					{
+						"filters": {
+							"test": "has_component",
+							"operator": "==",
+							"value": "minecraft:is_baby"
+						},
+						"add": {
+							"component_groups": ["resurge:dry_movement_baby"]
+						},
+						"remove": {
+							"component_groups": ["resurge:wet_movement_baby"]
+						}
+					}
+				]
+			},
+			"resurge:become_wet": {
+				"sequence": [
+					{
+						"filters": {
+							"test": "has_component",
+							"operator": "!=",
+							"value": "minecraft:is_baby"
+						},
+						"add": {
+							"component_groups": ["resurge:wet_movement_adult"]
+						},
+						"remove": {
+							"component_groups": ["resurge:dry_movement_adult"]
+						}
+					},
+					{
+						"filters": {
+							"test": "has_component",
+							"operator": "==",
+							"value": "minecraft:is_baby"
+						},
+						"add": {
+							"component_groups": ["resurge:wet_movement_baby"]
+						},
+						"remove": {
+							"component_groups": ["resurge:dry_movement_baby"]
+						}
+					}
+				]
+			},
+
+			"resurge:out_biome": {
+				"sequence": [
+					{
+						"add": {
+							"component_groups": ["resurge:out_biome_property"]
+						},
+						"remove": {
+							"component_groups": ["resurge:in_biome_property"]
+						}
+					},
+					{
+						"filters": {
+							"test": "is_mark_variant",
+							"value": 0
+						},
+						"add": {
+							"component_groups": ["resurge:out_biome_normal_knockback"]
+						},
+						"remove": {
+							"component_groups": [
+								"resurge:out_biome_hunt_knockback",
+								"resurge:in_biome_normal_knockback",
+								"resurge:in_biome_hunt_knockback"
+							]
+						}
+					},
+					{
+						"filters": {
+							"test": "is_mark_variant",
+							"value": 1
+						},
+						"add": {
+							"component_groups": ["resurge:out_biome_hunt_knockback"]
+						},
+						"remove": {
+							"component_groups": [
+								"resurge:out_biome_normal_knockback",
+								"resurge:in_biome_normal_knockback",
+								"resurge:in_biome_hunt_knockback"
+							]
+						}
+					}
+				]
+			},
+			"resurge:in_biome": {
+				"sequence": [
+					{
+						"add": {
+							"component_groups": ["resurge:in_biome_property"]
+						},
+						"remove": {
+							"component_groups": ["resurge:out_biome_property"]
+						}
+					},
+					{
+						"filters": {
+							"test": "is_mark_variant",
+							"value": 0
+						},
+						"add": {
+							"component_groups": ["resurge:in_biome_normal_knockback"]
+						},
+						"remove": {
+							"component_groups": [
+								"resurge:out_biome_normal_knockback",
+								"resurge:out_biome_hunt_knockback",
+								"resurge:in_biome_hunt_knockback"
+							]
+						}
+					},
+					{
+						"filters": {
+							"test": "is_mark_variant",
+							"value": 1
+						},
+						"add": {
+							"component_groups": ["resurge:in_biome_hunt_knockback"]
+						},
+						"remove": {
+							"component_groups": [
+								"resurge:out_biome_normal_knockback",
+								"resurge:out_biome_hunt_knockback",
+								"resurge:in_biome_normal_knockback"
+							]
+						}
+					}
+				]
+			},
+
+			"resurge:normal_mode": {
+				"sequence": [
+					{
+						"add": {
+							"component_groups": [
+								"resurge:normal_mark",
+								"resurge:normal_break_blocks"
+							]
+						},
+						"remove": {
+							"component_groups": [
+								"resurge:hunt_mark",
+								"resurge:hunt_break_blocks",
+								"resurge:hunt_timer"
+							]
+						}
+					},
+					{
+						"filters": {
+							"none_of": [
+								{
+									"test": "is_biome",
+									"subject": "self",
+									"value": "desert"
+								},
+								{
+									"test": "is_biome",
+									"subject": "self",
+									"value": "beach"
+								}
+							]
+						},
+						"add": {
+							"component_groups": ["resurge:out_biome_normal_knockback"]
+						},
+						"remove": {
+							"component_groups": [
+								"resurge:out_biome_hunt_knockback",
+								"resurge:in_biome_normal_knockback",
+								"resurge:in_biome_hunt_knockback"
+							]
+						}
+					},
+					{
+						"filters": {
+							"any_of": [
+								{
+									"test": "is_biome",
+									"subject": "self",
+									"value": "desert"
+								},
+								{
+									"test": "is_biome",
+									"subject": "self",
+									"value": "beach"
+								}
+							]
+						},
+						"add": {
+							"component_groups": ["resurge:in_biome_normal_knockback"]
+						},
+						"remove": {
+							"component_groups": [
+								"resurge:out_biome_normal_knockback",
+								"resurge:out_biome_hunt_knockback",
+								"resurge:in_biome_hunt_knockback"
+							]
+						}
+					}
+				]
+			},
+			"resurge:hunt_mode": {
+				"sequence": [
+					{
+						"filters": {
+							"test": "has_component",
+							"operator": "!=",
+							"value": "minecraft:timer"
+						},
+						"add": {
+							"component_groups": ["resurge:hunt_mark", "resurge:hunt_timer"]
+						},
+						"remove": {
+							"component_groups": ["resurge:normal_mark"]
+						},
+						"run_command": {
+							"command": [
+								"effect @s absorption 8 3 false",
+								"effect @s resistance 8 0 false"
+							]
+						}
+					},
+					{
+						"filters": {
+							"all_of": [
+								{
+									"none_of": [
+										{
+											"test": "is_biome",
+											"subject": "self",
+											"value": "desert"
+										},
+										{
+											"test": "is_biome",
+											"subject": "self",
+											"value": "beach"
+										}
+									]
+								},
+								{
+									"test": "has_component",
+									"operator": "!=",
+									"value": "minecraft:timer"
+								}
+							]
+						},
+						"add": {
+							"component_groups": ["resurge:out_biome_hunt_knockback"]
+						},
+						"remove": {
+							"component_groups": [
+								"resurge:out_biome_normal_knockback",
+								"resurge:in_biome_normal_knockback",
+								"resurge:in_biome_hunt_knockback"
+							]
+						}
+					},
+					{
+						"filters": {
+							"all_of": [
+								{
+									"any_of": [
+										{
+											"test": "is_biome",
+											"subject": "self",
+											"value": "desert"
+										},
+										{
+											"test": "is_biome",
+											"subject": "self",
+											"value": "beach"
+										}
+									]
+								},
+								{
+									"test": "has_component",
+									"operator": "!=",
+									"value": "minecraft:timer"
+								}
+							]
+						},
+						"add": {
+							"component_groups": ["resurge:in_biome_hunt_knockback"]
+						},
+						"remove": {
+							"component_groups": [
+								"resurge:out_biome_normal_knockback",
+								"resurge:out_biome_hunt_knockback",
+								"resurge:in_biome_normal_knockback"
+							]
+						}
+					},
+					{
+						"filters": {
+							"all_of": [
+								{
+									"test": "is_underwater",
+									"value": false
+								},
+								{
+									"test": "has_component",
+									"operator": "!=",
+									"value": "minecraft:timer"
+								}
+							]
+						},
+						"add": {
+							"component_groups": ["resurge:hunt_break_blocks"]
+						},
+						"remove": {
+							"component_groups": ["resurge:normal_break_blocks"]
+						}
+					}
+				]
+			},
+
+			"resurge:full_moon_night": {
+				"filters": {
+					"test": "is_variant",
+					"value": 1
+				},
+				"remove": {
+					"component_groups": ["resurge:moon_calm_timer"]
+				}
+			},
+			"resurge:non_full_moon_night": {
+				"sequence": [
+					//此处主动关闭猎杀模式，以避免出现猎杀timer被覆盖，无法恢复的情况
+					{
+						"filters": {
+							"test": "is_variant",
+							"value": 1
+						},
+						"add": {
+							"component_groups": [
+								"resurge:normal_mark",
+								"resurge:normal_break_blocks",
+								"resurge:moon_calm_timer"
+							]
+						},
+						"remove": {
+							"component_groups": [
+								"resurge:hunt_mark",
+								"resurge:hunt_break_blocks",
+								"resurge:hunt_timer"
+							]
+						}
+					},
+					{
+						"filters": {
+							"all_of": [
+								{
+									"test": "is_variant",
+									"value": 1
+								},
+								{
+									"none_of": [
+										{
+											"test": "is_biome",
+											"subject": "self",
+											"value": "desert"
+										},
+										{
+											"test": "is_biome",
+											"subject": "self",
+											"value": "beach"
+										}
+									]
+								}
+							]
+						},
+						"add": {
+							"component_groups": ["resurge:out_biome_normal_knockback"]
+						},
+						"remove": {
+							"component_groups": [
+								"resurge:out_biome_hunt_knockback",
+								"resurge:in_biome_normal_knockback",
+								"resurge:in_biome_hunt_knockback"
+							]
+						}
+					},
+					{
+						"filters": {
+							"all_of": [
+								{
+									"test": "is_variant",
+									"value": 1
+								},
+								{
+									"any_of": [
+										{
+											"test": "is_biome",
+											"subject": "self",
+											"value": "desert"
+										},
+										{
+											"test": "is_biome",
+											"subject": "self",
+											"value": "beach"
+										}
+									]
+								}
+							]
+						},
+						"add": {
+							"component_groups": ["resurge:in_biome_normal_knockback"]
+						},
+						"remove": {
+							"component_groups": [
+								"resurge:out_biome_normal_knockback",
+								"resurge:out_biome_hunt_knockback",
+								"resurge:in_biome_hunt_knockback"
+							]
+						}
+					}
+				]
+			},
+
+			"resurge:calm": {
+				"sequence": [
+					{
+						"filters": {
+							"test": "has_component",
+							"operator": "!=",
+							"value": "minecraft:is_baby"
+						},
+						"add": {
+							"component_groups": ["resurge:adult_calm"]
+						}
+					},
+					{
+						"filters": {
+							"test": "has_component",
+							"value": "minecraft:is_baby"
+						},
+						"sequence": [
+							{
+								"filters": {
+									"test": "has_component",
+									"operator": "!=",
+									"value": "minecraft:behavior.find_mount"
+								},
+								"add": {
+									"component_groups": ["resurge:baby_calm"]
+								}
+							},
+							{
+								"filters": {
+									"test": "has_component",
+									"value": "minecraft:behavior.find_mount"
+								},
+								"add": {
+									"component_groups": ["resurge:baby_jockey_calm"]
+								}
+							}
+						]
+					}
+				]
+			},
+
+			"universal:lightning_bolt_attack": {
+				"run_command": {
+					"command": ["summon lightning_bolt"]
+				}
+			},
+
+			"universal:get_real_damage_1": {
+				"run_command": {
+					"command": ["damage @s 1 none @s"]
+				}
+			},
+			"universal:get_real_damage_2": {
+				"run_command": {
+					"command": ["damage @s 2 none @s"]
+				}
+			},
+			"universal:get_real_damage_3": {
+				"run_command": {
+					"command": ["damage @s 3 none @s"]
+				}
+			},
+			"universal:get_real_damage_4": {
+				"run_command": {
+					"command": ["damage @s 4 none @s"]
+				}
+			},
+			"universal:get_real_damage_5": {
+				"run_command": {
+					"command": ["damage @s 5 none @s"]
+				}
+			},
+			"universal:get_real_damage_6": {
+				"run_command": {
+					"command": ["damage @s 6 none @s"]
+				}
+			},
+			"universal:get_real_damage_7": {
+				"run_command": {
+					"command": ["damage @s 7 none @s"]
+				}
+			},
+			"universal:get_real_damage_8": {
+				"run_command": {
+					"command": ["damage @s 8 none @s"]
+				}
+			},
+			"universal:get_real_damage_9": {
+				"run_command": {
+					"command": ["damage @s 9 none @s"]
+				}
+			},
+			"universal:get_real_damage_10": {
+				"run_command": {
+					"command": ["damage @s 10 none @s"]
+				}
+			}
+		}
+	}
+}

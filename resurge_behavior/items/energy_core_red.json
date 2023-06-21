@@ -1,0 +1,19 @@
+{
+	"format_version": "1.16.100",
+	"minecraft:item": {
+		"description": {
+			"identifier": "resurge:red_energy_core",
+			"category": "items"
+		},
+
+		"components": {
+			"minecraft:icon": {
+				"texture": "red_energy_core"
+			},
+			"minecraft:display_name": {
+				"value": "§c红色能量核心§r"
+			},
+			"minecraft:foil": true
+		}
+	}
+}

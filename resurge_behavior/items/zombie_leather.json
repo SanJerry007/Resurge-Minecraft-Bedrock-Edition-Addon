@@ -1,0 +1,18 @@
+{
+	"format_version": "1.16.100",
+	"minecraft:item": {
+		"description": {
+			"identifier": "resurge:zombie_leather",
+			"category": "nature"
+		},
+
+		"components": {
+			"minecraft:icon": {
+				"texture": "zombie_leather"
+			},
+			"minecraft:display_name": {
+				"value": "尸皮"
+			}
+		}
+	}
+}

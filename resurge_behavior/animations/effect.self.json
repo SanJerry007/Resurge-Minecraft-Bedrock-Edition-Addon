@@ -1,0 +1,40 @@
+{
+	"format_version": "1.16.0",
+	"animations": {
+		"animation.effect.self.slowness": {
+			"loop": true,
+			"animation_length": 8.0,
+			"timeline": {
+				"0.0": ["/effect @s slowness 10 0 true"]
+			}
+		},
+		"animation.effect.self.instant_health": {
+			"loop": true,
+			"animation_length": 10.0,
+			"timeline": {
+				"0.0": ["/effect @s instant_health 1 0 true"]
+			}
+		},
+		"animation.effect.self.instant_damage": {
+			"loop": true,
+			"animation_length": 15.0,
+			"timeline": {
+				"0.0": ["/effect @s instant_damage 1 0 true"]
+			}
+		},
+		"animation.effect.self.resistance": {
+			"loop": true,
+			"animation_length": 8.0,
+			"timeline": {
+				"0.0": ["/effect @s resistance 10 0 true"]
+			}
+		},
+		"animation.effect.self.slow_falling": {
+			"loop": true,
+			"animation_length": 120.0,
+			"timeline": {
+				"0.0": ["/effect @s slow_falling 125 0 true"]
+			}
+		}
+	}
+}

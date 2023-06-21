@@ -1,0 +1,258 @@
+{
+	"pools": [
+		{
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "item",
+					"name": "minecraft:arrow",
+					"weight": 19,
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 0,
+								"max": 3
+							}
+						},
+						{
+							"function": "looting_enchant",
+							"count": {
+								"min": 0,
+								"max": 2
+							}
+						}
+					]
+				},
+				{
+					"type": "item",
+					"name": "minecraft:arrow",
+					"weight": 1,
+					"functions": [
+						{
+							"function": "set_data",
+							"data": 42
+						},
+						{
+							"function": "set_count",
+							"count": {
+								"min": 0,
+								"max": 3
+							}
+						},
+						{
+							"function": "looting_enchant",
+							"count": {
+								"min": 0,
+								"max": 2
+							}
+						}
+					]
+				}
+			]
+		},
+
+		{
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "item",
+					"name": "minecraft:bone_meal",
+					"weight": 3,
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 0,
+								"max": 3
+							}
+						},
+						{
+							"function": "looting_enchant",
+							"count": {
+								"min": 0,
+								"max": 2
+							}
+						}
+					]
+				},
+				{
+					"type": "item",
+					"name": "minecraft:bone",
+					"weight": 1,
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 0,
+								"max": 3
+							}
+						},
+						{
+							"function": "looting_enchant",
+							"count": {
+								"min": 0,
+								"max": 1
+							}
+						}
+					]
+				}
+			]
+		},
+
+		{
+			"conditions": [
+				{
+					"condition": "killed_by_player_or_pets"
+				},
+				{
+					"condition": "random_chance_with_looting",
+					"chance": 0.1,
+					"looting_multiplier": 0.025
+				}
+			],
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "item",
+					"name": "minecraft:flint",
+					"weight": 10,
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 1,
+								"max": 7
+							}
+						},
+						{
+							"function": "looting_enchant",
+							"count": {
+								"min": 0,
+								"max": 3
+							}
+						}
+					]
+				},
+				{
+					"type": "item",
+					"name": "minecraft:quartz",
+					"weight": 7,
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 1,
+								"max": 7
+							}
+						},
+						{
+							"function": "looting_enchant",
+							"count": {
+								"min": 0,
+								"max": 3
+							}
+						}
+					]
+				},
+				{
+					"type": "item",
+					"name": "minecraft:prismarine_shard",
+					"weight": 3,
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 1,
+								"max": 7
+							}
+						},
+						{
+							"function": "looting_enchant",
+							"count": {
+								"min": 0,
+								"max": 3
+							}
+						}
+					]
+				}
+			]
+		},
+
+		{
+			"conditions": [
+				{
+					"condition": "killed_by_player_or_pets"
+				},
+				{
+					"condition": "random_chance_with_looting",
+					"chance": 0.025,
+					"looting_multiplier": 0.01
+				}
+			],
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "item",
+					"name": "resurge:blue_energy_core",
+					"weight": 4
+				},
+                {
+					"type": "item",
+					"name": "resurge:moon_silk",
+					"weight": 2,
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 1,
+								"max": 5
+							}
+						}
+					]
+				},
+				{
+					"type": "item",
+					"name": "resurge:lightning_energy_core",
+					"weight": 1
+				},
+				{
+					"type": "item",
+					"name": "resurge:skeleton_body",
+					"weight": 1
+				}
+			]
+		},
+
+		{
+			"conditions": [
+				{
+					"condition": "killed_by_player_or_pets"
+				},
+				{
+					"condition": "random_chance",
+					"chance": 0.001
+				}
+			],
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "item",
+					"name": "minecraft:skull",
+					"weight": 2,
+					"functions": [
+						{
+							"function": "set_data",
+							"data": 0
+						}
+					]
+				},
+				{
+					"type": "item",
+					"name": "resurge:skeleton_raged_spawn_egg",
+					"weight": 1
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,62 @@
+{
+	"format_version": "1.16.100",
+	"minecraft:item": {
+		"description": {
+			"identifier": "resurge:zombie_brain",
+			"category": "nature"
+		},
+
+		"components": {
+			"minecraft:hand_equipped": false,
+			"minecraft:stacked_by_data": true,
+			"minecraft:use_duration": 1.6,
+			"minecraft:food": {
+				"nutrition": 4,
+				"saturation_modifier": "poor",
+				"can_always_eat": false,
+				"on_consume": {
+					"event": "consumed",
+					"target": "self"
+				}
+			},
+			"minecraft:use_animation": "eat",
+			"minecraft:icon": {
+				"texture": "zombie_brain"
+			},
+			"minecraft:display_name": {
+				"value": "逝者之脑"
+			}
+		},
+
+		"events": {
+			"consumed": {
+				"sequence": [
+					{
+						"add_mob_effect": {
+							"effect": "weakness",
+							"target": "holder",
+							"duration": 60,
+							"amplifier": 1
+						}
+					},
+					{
+						"add_mob_effect": {
+							"effect": "nausea",
+							"target": "holder",
+							"duration": 60,
+							"amplifier": 0
+						}
+					},
+					{
+						"add_mob_effect": {
+							"effect": "mining_fatigue",
+							"target": "holder",
+							"duration": 60,
+							"amplifier": 2
+						}
+					}
+				]
+			}
+		}
+	}
+}

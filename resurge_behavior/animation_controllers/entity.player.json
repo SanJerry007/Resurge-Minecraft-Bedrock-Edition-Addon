@@ -1,0 +1,32 @@
+{
+	"format_version": "1.16.0",
+	"animation_controllers": {
+		"controller.animation.entity.player.spawn_effect": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"alive": "query.is_alive"
+						}
+					]
+				},
+				"alive": {
+					"on_entry": [
+						"/effect @s resistance 10 4 false",
+						"/effect @s strength 10 0 false",
+						"/effect @s absorption 30 1 false",
+						"/effect @s night_vision 30 1 false"
+					],
+					"transitions": [
+						{
+							"default": "!query.is_alive"
+						}
+					],
+                    "on_exit":[
+                        "/scoreboard players add @s death_count 1"
+                    ]
+				}
+			}
+		}
+	}
+}

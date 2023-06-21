@@ -1,0 +1,11 @@
+{
+	"format_version": "1.12",
+	"minecraft:recipe_furnace": {
+		"description": {
+			"identifier": "resurge:furnace_leather"
+		},
+		"tags": ["furnace", "blast_furnace"],
+		"input": "resurge:rotten_flesh_plus",
+		"output": "minecraft:leather"
+	}
+}

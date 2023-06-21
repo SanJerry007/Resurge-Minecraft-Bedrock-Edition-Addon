@@ -1,0 +1,183 @@
+{
+	"format_version": "1.16.0",
+	"animation_controllers": {
+		"controller.animation.test.target_test": {
+			"states": {
+				"default": {
+					"on_entry": ["/say target lost"],
+					"transitions": [
+						{
+							"targeted": "query.has_target == 1.0"
+						}
+					]
+				},
+				"targeted": {
+					"on_entry": ["/say target gained"],
+					"transitions": [
+						{
+							"default": "query.has_target == 0.0"
+						}
+					]
+				}
+			}
+		},
+
+		"controller.animation.test.ground_test": {
+			"states": {
+				"default": {
+					"on_entry": ["/say not on ground"],
+					"transitions": [
+						{
+							"ground": "query.is_on_ground == 1.0"
+						}
+					]
+				},
+				"ground": {
+					"on_entry": ["/say on ground"],
+					"transitions": [
+						{
+							"default": "query.is_on_ground == 0.0"
+						}
+					]
+				}
+			}
+		},
+
+		"controller.animation.test.cast_test": {
+			"states": {
+				"default": {
+					"on_entry": ["/say not casting"],
+					"transitions": [
+						{
+							"casting": "query.is_casting"
+						}
+					]
+				},
+				"casting": {
+					"on_entry": ["/say casting"],
+					"transitions": [
+						{
+							"default": "!query.is_casting"
+						}
+					]
+				}
+			}
+		},
+
+		"controller.animation.test.power_test": {
+			"states": {
+				"default": {
+					"on_entry": ["/say not powered"],
+					"transitions": [
+						{
+							"powered": "query.is_powered"
+						}
+					]
+				},
+				"powered": {
+					"on_entry": ["/say powered"],
+					"transitions": [
+						{
+							"default": "!query.is_powered"
+						}
+					]
+				}
+			}
+		},
+
+		"controller.animation.test.charge_test": {
+			"states": {
+				"default": {
+					"on_entry": ["/say not charged"],
+					"transitions": [
+						{
+							"charged": "query.is_charged"
+						}
+					]
+				},
+				"charged": {
+					"on_entry": ["/say charged"],
+					"transitions": [
+						{
+							"default": "!query.is_charged"
+						}
+					]
+				}
+			}
+		},
+
+		"controller.animation.test.time_test": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"midnight_sunrise": "query.time_of_day >= 0.0 && query.time_of_day < 0.25"
+						},
+						{
+							"sunrise_noon": "query.time_of_day >= 0.25 && query.time_of_day < 0.5"
+						},
+						{
+							"noon_sunset": "query.time_of_day >= 0.5 && query.time_of_day < 0.75"
+						},
+						{
+							"sunset_midnight": "query.time_of_day >= 0.75"
+						}
+					]
+				},
+				"midnight_sunrise": {
+					"on_entry": ["/say midnight_sunrise 0.0-0.25"],
+					"transitions": [
+						{
+							"default": "!(query.time_of_day >= 0.0 && query.time_of_day < 0.25)"
+						}
+					]
+				},
+				"sunrise_noon": {
+					"on_entry": ["/say sunrise_noon 0.25-0.5"],
+					"transitions": [
+						{
+							"default": "!(query.time_of_day >= 0.25 && query.time_of_day < 0.5)"
+						}
+					]
+				},
+				"noon_sunset": {
+					"on_entry": ["/say noon_sunset 0.5-0.75"],
+					"transitions": [
+						{
+							"default": "!(query.time_of_day >= 0.5 && query.time_of_day < 0.75)"
+						}
+					]
+				},
+				"sunset_midnight": {
+					"on_entry": ["/say sunset_midnight 0.75-1"],
+					"transitions": [
+						{
+							"default": "!(query.time_of_day >= 0.75)"
+						}
+					]
+				}
+			}
+		},
+
+		"controller.animation.test.component.activation_test": {
+			"states": {
+				"default": {
+					"on_entry": ["/say not activated", "@s test:remove_temp_event"],
+					"transitions": [
+						{
+							"activated": "query.is_item_name_any('slot.weapon.mainhand', 0, 'minecraft:diamond_sword')"
+						}
+					]
+				},
+				"activated": {
+					"on_entry": ["/say activated", "@s test:temp_event"],
+					"transitions": [
+						{
+							"default": "!query.is_item_name_any('slot.weapon.mainhand', 0, 'minecraft:diamond_sword')"
+						}
+					]
+				}
+			}
+		}
+	}
+}

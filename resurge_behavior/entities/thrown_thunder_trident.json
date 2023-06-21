@@ -1,0 +1,60 @@
+{
+	"format_version": "1.16.0",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "resurge:thrown_thunder_trident",
+			"is_spawnable": false,
+			"is_summonable": false,
+			"is_experimental": false,
+			"runtime_identifier": "minecraft:thrown_trident"
+		},
+
+		"components": {
+			"minecraft:collision_box": {
+				"width": 0.25,
+				"height": 0.35
+			},
+			"minecraft:projectile": {
+				"on_hit": {
+					"impact_damage": {
+						"damage": 6,
+						"knockback": true,
+						"semi_random_diff_damage": true,
+						"destroy_on_hit": false
+					},
+					"stick_in_ground": {
+						"shake_time": 0
+					}
+				},
+				"lightning": true,
+				"reflect_on_hurt": false,
+				"multiple_targets": true,
+				"catch_fire": true,
+                "stop_on_hurt": false,
+				"liquid_inertia": 0.99,
+				"hit_sound": "item.trident.hit",
+				"hit_ground_sound": "item.trident.hit_ground",
+				"shoot_sound": "item.trident.throw",
+				"power": 8,
+				"gravity": 0.1,
+				"uncertainty_base": 1,
+				"uncertainty_multiplier": 0,
+				"anchor": 10,
+				"should_bounce": true,
+				"offset": [0, -0.1, 0]
+			},
+			"minecraft:physics": {},
+			"minecraft:pushable": {
+				"is_pushable": true,
+				"is_pushable_by_piston": true
+			},
+			"minecraft:conditional_bandwidth_optimization": {
+				"default_values": {
+					"max_optimized_distance": 80.0,
+					"max_dropped_ticks": 10,
+					"use_motion_prediction_hints": true
+				}
+			}
+		}
+	}
+}

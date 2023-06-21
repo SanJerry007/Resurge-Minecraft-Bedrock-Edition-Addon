@@ -1,0 +1,29 @@
+{
+	"format_version": "1.16.0",
+	"animation_controllers": {
+		"controller.animation.loot.moon": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"full_moon_night": "query.moon_brightness == 1.0 && (query.time_of_day >= 0.75 || query.time_of_day <= 0.25)"
+						}
+					]
+				},
+				"full_moon_night": {
+					"transitions": [
+						{
+							"default": "!(query.moon_brightness == 1.0 && (query.time_of_day >= 0.75 || query.time_of_day <= 0.25))"
+						},
+						{
+							"player_kill": "!query.is_alive && query.last_hit_by_player"
+						}
+					]
+				},
+				"player_kill": {
+					"on_entry": ["/summon resurge_base:moon_loot"]
+				}
+			}
+		}
+	}
+}

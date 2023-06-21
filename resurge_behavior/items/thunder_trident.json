@@ -1,0 +1,65 @@
+{
+	"format_version": "1.16.100",
+	"minecraft:item": {
+		"description": {
+			"identifier": "resurge:thunder_trident",
+			"category": "equipment"
+		},
+
+		"components": {
+			"minecraft:max_stack_size": 1,
+			"minecraft:hand_equipped": true,
+			"minecraft:can_destroy_in_creative": false,
+
+			"minecraft:use_duration": 1.0,
+			"minecraft:durability": {
+				"max_durability": 150
+			},
+			"minecraft:repairable": {
+				"repair_items": [
+					{
+						"items": ["minecraft:trident"],
+						"repair_amount": 50,
+						"on_repaired": {
+							"event": "resurge:random_thunder_attack",
+							"target": "holder"
+						}
+					},
+					{
+						"items": ["resurge:thunder_trident"],
+						"repair_amount": "query.remaining_durability",
+						"on_repaired": {
+							"event": "resurge:random_thunder_attack",
+							"target": "holder"
+						}
+					}
+				]
+			},
+			"minecraft:damage": 6,
+			"minecraft:weapon": {},
+			"minecraft:enchantable": {
+				"value": 10,
+				"slot": "trident"
+			},
+			"minecraft:throwable": {
+				"do_swing_animation": true,
+				"min_draw_duration": 10.0,
+				"max_draw_duration": 20.0,
+				"scale_power_by_draw_duration": true
+			},
+			"minecraft:projectile": {
+				"projectile_entity": "resurge:thrown_thunder_trident",
+				"minimum_critical_power": 1.0
+			},
+
+			"minecraft:icon": {
+				"texture": "thunder_trident"
+			},
+			"minecraft:display_name": {
+				"value": "§b雷霆三叉戟§r"
+			}
+		},
+
+		"events": {}
+	}
+}

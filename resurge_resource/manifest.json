@@ -1,0 +1,23 @@
+{
+    "format_version": 2,
+	"header": {
+		"name": "§c复生§r§b月神之怒§r",
+		"description": "§6黑月是否嚎叫？不在满月之时。§r本模块属复生系列mod之一，包含原版生物强化内容，并新增了一系列生物、物品与地形。(作者SanJerry007，相关QQ群610141436)",
+		"uuid": "1bed9c74-879c-4b51-8877-3fc9fda20a38",
+		"version": [0, 3, 2],
+		"min_engine_version": [1, 20, 0]
+	},
+	"modules": [
+		{
+			"description": "复生-月神之怒-资源包(Resurge-AngerOfMoonitars-ResourcePack)",
+			"uuid": "f1c4f439-b0cd-4409-a22b-755c65c534fe",
+			"version": [0, 3, 2],
+			"type": "resources"
+		}
+	],
+	"metadata": {
+		"authors": ["SanJerry007"],
+		"license": "GPL-3.0",
+		"url": "https://github.com/SanJerry007/Resurge-Minecraft-Bedrock-Edition-Addon/tree/main"
+	}
+}

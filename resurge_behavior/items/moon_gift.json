@@ -1,0 +1,19 @@
+{
+	"format_version": "1.16.100",
+	"minecraft:item": {
+		"description": {
+			"identifier": "resurge:moon_gift",
+			"category": "items"
+		},
+
+		"components": {
+			"minecraft:icon": {
+				"texture": "moon_gift"
+			},
+			"minecraft:display_name": {
+				"value": "§b月神恩赐§r"
+			},
+			"minecraft:foil": true
+		}
+	}
+}

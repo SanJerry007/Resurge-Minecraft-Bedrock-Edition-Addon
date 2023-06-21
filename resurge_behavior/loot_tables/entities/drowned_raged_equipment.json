@@ -1,0 +1,95 @@
+{
+	"pools": [
+		{
+			"rolls": 1,
+            "conditions": [
+				{
+					"condition": "random_chance",
+					"chance": 0.35
+				}
+			],
+			"entries": [
+				{
+					"type": "item",
+					"name": "resurge:thunder_trident",
+					"weight": 30,
+                    "functions": [
+						{
+							"function": "enchant_random_gear",
+							"chance": 0.5
+						}
+					]
+				},
+                {
+					"type": "item",
+					"name": "minecraft:fishing_rod",
+					"weight": 5,
+                    "functions": [
+						{
+							"function": "enchant_random_gear",
+							"chance": 0.5
+						}
+					]
+				}
+			]
+		},
+		{
+			"rolls": 1,
+			"conditions": [
+				{
+					"condition": "random_chance",
+					"chance": 0.08
+				}
+			],
+			"entries": [
+				{
+					"type": "item",
+					"name": "minecraft:nautilus_shell",
+					"weight": 1
+				}
+			]
+		},
+		{
+			"conditions": [
+				{
+					"condition": "random_difficulty_chance",
+					"default_chance": 1.0,
+					"peaceful": 0,
+					"easy": 0
+				},
+				{
+					"condition": "random_regional_difficulty_chance",
+					"max_chance": 0.35
+				}
+			],
+			"tiers": {
+				"initial_range": 3,
+				"bonus_rolls": 2,
+				"bonus_chance": 0.2
+			},
+
+			"entries": [
+				{
+					"type": "loot_table",
+					"name": "loot_tables/entities/armor_set_leather.json"
+				},
+				{
+					"type": "loot_table",
+					"name": "loot_tables/entities/armor_set_gold.json"
+				},
+				{
+					"type": "loot_table",
+					"name": "loot_tables/entities/armor_set_chain.json"
+				},
+				{
+					"type": "loot_table",
+					"name": "loot_tables/entities/armor_set_iron.json"
+				},
+				{
+					"type": "loot_table",
+					"name": "loot_tables/entities/armor_set_diamond.json"
+				}
+			]
+		}
+	]
+}

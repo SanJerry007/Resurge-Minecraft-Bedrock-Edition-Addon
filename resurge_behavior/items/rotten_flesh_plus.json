@@ -1,0 +1,86 @@
+{
+	"format_version": "1.16.100",
+	"minecraft:item": {
+		"description": {
+			"identifier": "resurge:rotten_flesh_plus",
+			"category": "nature"
+		},
+
+		"components": {
+			"minecraft:hand_equipped": false,
+			"minecraft:stacked_by_data": true,
+			"minecraft:use_duration": 1.6,
+			"minecraft:food": {
+				"nutrition": 5,
+				"saturation_modifier": "normal",
+				"can_always_eat": false,
+				"on_consume": {
+					"event": "consumed",
+					"target": "self"
+				}
+			},
+			"minecraft:use_animation": "eat",
+			"minecraft:icon": {
+				"texture": "rotten_flesh_plus"
+			},
+			"minecraft:display_name": {
+				"value": "强化腐肉"
+			}
+		},
+
+		"events": {
+			"consumed": {
+				"sequence": [
+					{
+						"randomize": [
+							{
+								"weight": 90
+							},
+							{
+								"weight": 10,
+								"add_mob_effect": {
+									"effect": "wither",
+									"target": "holder",
+									"duration": 4,
+									"amplifier": 2
+								}
+							}
+						]
+					},
+					{
+						"randomize": [
+							{
+								"weight": 20
+							},
+							{
+								"weight": 80,
+								"add_mob_effect": {
+									"effect": "nausea",
+									"target": "holder",
+									"duration": 16,
+									"amplifier": 0
+								}
+							}
+						]
+					},
+					{
+						"randomize": [
+							{
+								"weight": 20
+							},
+							{
+								"weight": 80,
+								"add_mob_effect": {
+									"effect": "mining_fatigue",
+									"target": "holder",
+									"duration": 30,
+									"amplifier": 0
+								}
+							}
+						]
+					}
+				]
+			}
+		}
+	}
+}

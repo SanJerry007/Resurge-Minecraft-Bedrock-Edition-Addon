@@ -1,0 +1,20 @@
+{
+	"format_version": "1.16.100",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "resurge:thrown_thunder_trident",
+			"textures": {
+				"default": "textures/entity/thunder_trident",
+				"loyalty_rope": "textures/entity/loyalty_rope"
+			},
+			"materials": {
+				"default": "trident",
+				"riptide": "trident_riptide",
+				"glint": "trident_glint"
+			},
+			"geometry": {
+				"default": "geometry.trident"
+			}
+		}
+	}
+}

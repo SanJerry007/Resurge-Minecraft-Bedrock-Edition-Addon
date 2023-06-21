@@ -1,0 +1,25 @@
+{
+	"format_version": "1.16.0",
+	"animation_controllers": {
+		"controller.animation.entity.husk.biome_detector": {
+			"states": {
+				"default": {
+					"on_entry": ["@s resurge:out_biome"],
+					"transitions": [
+						{
+							"biome": "query.biome_has_any_tag('desert','beach')"
+						}
+					]
+				},
+				"biome": {
+					"on_entry": ["@s resurge:in_biome"],
+					"transitions": [
+						{
+							"default": "!query.biome_has_any_tag('desert','beach')"
+						}
+					]
+				}
+			}
+		}
+	}
+}

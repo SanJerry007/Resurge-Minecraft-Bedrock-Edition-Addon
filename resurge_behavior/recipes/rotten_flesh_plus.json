@@ -1,0 +1,22 @@
+{
+	"format_version": "1.12",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "resurge:rotten_flesh_plus"
+		},
+		"tags": ["crafting_table"],
+		"pattern": ["###", "#S#", "###"],
+		"key": {
+			"#": {
+				"item": "minecraft:rotten_flesh"
+			},
+			"S": {
+				"item": "minecraft:bone_meal"
+			}
+		},
+		"result": {
+			"item": "resurge:rotten_flesh_plus",
+			"count": 4
+		}
+	}
+}

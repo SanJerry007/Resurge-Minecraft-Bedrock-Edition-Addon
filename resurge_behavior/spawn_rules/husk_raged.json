@@ -1,0 +1,59 @@
+{
+	"format_version": "1.8.0",
+	"minecraft:spawn_rules": {
+		"description": {
+			"identifier": "resurge:husk_raged",
+			"population_control": "monster"
+		},
+		"conditions": [
+			{
+				"minecraft:spawns_on_surface": {},
+				"minecraft:brightness_filter": {
+					"min": 0,
+					"max": 9,
+					"adjust_for_weather": true
+				},
+				"minecraft:difficulty_filter": {
+					"min": "easy",
+					"max": "hard"
+				},
+				"minecraft:weight": {
+					"default": 12
+				},
+				"minecraft:herd": {
+					"min_size": 1,
+					"max_size": 3
+				},
+				"minecraft:biome_filter": {
+					"test": "has_biome_tag",
+					"operator": "==",
+					"value": "desert"
+				}
+			},
+			{
+				"minecraft:spawns_on_surface": {},
+				"minecraft:brightness_filter": {
+					"min": 0,
+					"max": 9,
+					"adjust_for_weather": true
+				},
+				"minecraft:difficulty_filter": {
+					"min": "easy",
+					"max": "hard"
+				},
+				"minecraft:weight": {
+					"default": 6
+				},
+				"minecraft:herd": {
+					"min_size": 1,
+					"max_size": 3
+				},
+				"minecraft:biome_filter": {
+					"test": "has_biome_tag",
+					"operator": "==",
+					"value": "beach"
+				}
+			}
+		]
+	}
+}

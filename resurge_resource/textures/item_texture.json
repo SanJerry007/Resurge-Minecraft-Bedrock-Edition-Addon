@@ -1,0 +1,62 @@
+{
+	"resource_pack_name": "vanilla",
+	"texture_name": "atlas.items",
+	"texture_data": {
+		"red_energy_core": {
+			"textures": "textures/items/energy_core/red_energy_core"
+		},
+		"blue_energy_core": {
+			"textures": "textures/items/energy_core/blue_energy_core"
+		},
+		"lightning_energy_core": {
+			"textures": "textures/items/energy_core/lightning_energy_core"
+		},
+
+		"moon_gift": {
+			"textures": "textures/items/gift/moon_gift"
+		},
+
+		"moon_rock": {
+			"textures": "textures/items/moon_rock"
+		},
+		"moon_debris": {
+			"textures": "textures/items/moon_debris"
+		},
+		"moon_silk": {
+			"textures": "textures/items/moon_silk"
+		},
+
+		"thunder_trident": {
+			"textures": "textures/items/weapon/thunder_trident"
+		},
+
+		"night_watcher_bow_pulling": {
+			"textures": [
+				"textures/items/weapon/night_watcher_bow_pulling_0",
+				"textures/items/weapon/night_watcher_bow_pulling_1",
+				"textures/items/weapon/night_watcher_bow_pulling_2"
+			]
+		},
+		"night_watcher_bow_standby": {
+			"textures": "textures/items/weapon/night_watcher_bow_standby"
+		},
+
+		"rotten_flesh_plus": {
+			"textures": "textures/items/rotten_flesh_plus"
+		},
+
+		"zombie_leather": {
+			"textures": "textures/items/zombie_leather"
+		},
+		"zombie_brain": {
+			"textures": "textures/items/zombie_brain"
+		},
+		"zombie_body": {
+			"textures": "textures/items/zombie_body"
+		},
+
+		"skeleton_body": {
+			"textures": "textures/items/skeleton_body"
+		}
+	}
+}

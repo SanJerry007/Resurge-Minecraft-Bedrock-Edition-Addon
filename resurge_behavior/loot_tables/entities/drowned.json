@@ -1,0 +1,228 @@
+{
+	"pools": [
+		{
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "item",
+					"name": "minecraft:rotten_flesh",
+					"weight": 49,
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 0,
+								"max": 3
+							}
+						},
+						{
+							"function": "looting_enchant",
+							"count": {
+								"min": 0,
+								"max": 2
+							}
+						}
+					]
+				},
+				{
+					"type": "item",
+					"name": "minecraft:leather",
+					"weight": 1,
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 0,
+								"max": 2
+							}
+						},
+						{
+							"function": "looting_enchant",
+							"count": {
+								"min": 0,
+								"max": 1
+							}
+						}
+					]
+				}
+			]
+		},
+
+		{
+			"conditions": [
+				{
+					"condition": "killed_by_player_or_pets"
+				},
+				{
+					"condition": "random_chance_with_looting",
+					"chance": 0.1,
+					"looting_multiplier": 0.025
+				}
+			],
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "item",
+					"name": "minecraft:kelp",
+					"weight": 5,
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 1,
+								"max": 5
+							}
+						},
+						{
+							"function": "looting_enchant",
+							"count": {
+								"min": 0,
+								"max": 1
+							}
+						}
+					]
+				},
+				{
+					"type": "item",
+					"name": "minecraft:seagrass",
+					"weight": 3,
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 1,
+								"max": 3
+							}
+						},
+						{
+							"function": "looting_enchant",
+							"count": {
+								"min": 0,
+								"max": 1
+							}
+						}
+					]
+				},
+				{
+					"type": "item",
+					"name": "minecraft:sea_pickle",
+					"weight": 2,
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 1,
+								"max": 2
+							}
+						}
+					]
+				}
+			]
+		},
+
+		{
+			"conditions": [
+				{
+					"condition": "killed_by_player_or_pets"
+				},
+				{
+					"condition": "random_chance_with_looting",
+					"chance": 0.025,
+					"looting_multiplier": 0.01
+				}
+			],
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "item",
+					"name": "minecraft:coral_block",
+					"weight": 1,
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 1,
+								"max": 5
+							}
+						},
+						{
+							"function": "random_block_state",
+							"block_state": "coral_color",
+							"values": {
+								"min": 0,
+								"max": 4
+							}
+						}
+					]
+				},
+				{
+					"type": "item",
+					"name": "minecraft:coral_fan",
+					"weight": 1,
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 1,
+								"max": 5
+							}
+						},
+						{
+							"function": "random_block_state",
+							"block_state": "coral_color",
+							"values": {
+								"min": 0,
+								"max": 4
+							}
+						}
+					]
+				}
+			]
+		},
+
+		{
+			"conditions": [
+				{
+					"condition": "killed_by_player_or_pets"
+				},
+				{
+					"condition": "random_chance",
+					"chance": 0.001
+				}
+			],
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "item",
+					"name": "minecraft:scute",
+					"weight": 1,
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 5,
+								"max": 15
+							}
+						}
+					]
+				},
+				{
+					"type": "item",
+					"name": "minecraft:skull",
+					"weight": 1,
+					"functions": [
+						{
+							"function": "set_data",
+							"data": 2
+						}
+					]
+				},
+				{
+					"type": "item",
+					"name": "minecraft:drowned_spawn_egg",
+					"weight": 1
+				}
+			]
+		}
+	]
+}

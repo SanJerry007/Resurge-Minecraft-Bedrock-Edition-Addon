@@ -1,0 +1,15 @@
+{
+	"format_version": "1.16.0",
+	"animations": {
+		"animation.resurge.base.scoreboard": {
+			"loop": true,
+			"animation_length": 60.0,
+			"timeline": {
+				"0.00": [
+					"/scoreboard objectives add resurge_temp dummy 复生-临时变量",
+                    "/scoreboard objectives add death_count dummy 死亡次数榜"
+				]
+			}
+		}
+	}
+}

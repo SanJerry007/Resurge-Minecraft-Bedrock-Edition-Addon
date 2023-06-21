@@ -1,0 +1,18 @@
+{
+	"format_version": "1.16.100",
+	"minecraft:item": {
+		"description": {
+			"identifier": "resurge:moon_debris",
+			"category": "items"
+		},
+
+		"components": {
+			"minecraft:icon": {
+				"texture": "moon_debris"
+			},
+			"minecraft:display_name": {
+				"value": "月亮碎片"
+			}
+		}
+	}
+}

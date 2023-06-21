@@ -1,0 +1,1514 @@
+{
+	"format_version": "1.18.20",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "minecraft:skeleton",
+			"is_spawnable": true,
+			"is_summonable": true,
+			"is_experimental": false,
+			"scripts": {
+				"animate": ["moon_stage"]
+			},
+			"animations": {
+				"moon_stage": "controller.animation.entity.normal.moon_stage"
+			}
+		},
+		"component_groups": {
+			"in_powder_snow": {
+				"minecraft:is_shaking": {},
+				"minecraft:timer": {
+					"looping": false,
+					"time": 20,
+					"time_down_event": {
+						"event": "become_stray_event"
+					}
+				},
+				"minecraft:environment_sensor": {
+					"triggers": [
+						{
+							"filters": {
+								"test": "in_block",
+								"subject": "self",
+								"operator": "!=",
+								"value": "minecraft:powder_snow"
+							},
+							"event": "got_out_of_powder_snow"
+						}
+					]
+				}
+			},
+			"got_out_of_powder_snow_environment_sensor": {
+				"minecraft:environment_sensor": {
+					"triggers": [
+						{
+							"filters": {
+								"test": "has_ranged_weapon",
+								"value": false
+							},
+							"event": "resurge:normal_melee_mode"
+						},
+						{
+							"filters": {
+								"test": "has_ranged_weapon",
+								"value": true
+							},
+							"event": "resurge:normal_ranged_mode"
+						}
+					]
+				}
+			},
+			"become_stray": {
+				"minecraft:transformation": {
+					"into": "minecraft:stray",
+					"transformation_sound": "convert_to_stray",
+					"keep_level": true,
+					"drop_inventory": true,
+					"preserve_equipment": true
+				}
+			},
+
+			"resurge:normal_melee_mode": {
+				"minecraft:mark_variant": {
+					"value": 0 //标识普通状态
+				},
+				"minecraft:behavior.melee_attack": {
+					"priority": 1,
+					"track_target": true,
+					"speed_multiplier": 1.0
+				},
+				"minecraft:attack": {
+					"damage": 5
+				},
+				"minecraft:environment_sensor": {
+					"triggers": [
+						{
+							"filters": {
+								"test": "has_ranged_weapon",
+								"value": true
+							},
+							"event": "resurge:normal_ranged_mode"
+						},
+						{
+							"filters": {
+								"test": "in_block",
+								"subject": "self",
+								"operator": "==",
+								"value": "minecraft:powder_snow"
+							},
+							"event": "got_in_powder_snow"
+						}
+					]
+				}
+			},
+			"resurge:normal_ranged_mode": {
+				"minecraft:mark_variant": {
+					"value": 0 //标识普通状态
+				},
+				"minecraft:behavior.avoid_mob_type": {
+					"priority": 0,
+					"entity_types": [
+						{
+							"filters": {
+								"any_of": [
+									{
+										"test": "is_target",
+										"subject": "other",
+										"value": true
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "player"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "friend"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "darkness"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "wolf"
+									}
+								]
+							},
+							"max_dist": 8
+						}
+					],
+					"avoid_target_xz": 16,
+					"avoid_target_y": 8,
+					"max_dist": 8,
+					"max_flee": 4,
+					"ignore_visibility": false
+				},
+				"minecraft:behavior.ranged_attack": {
+					"priority": 1,
+					"attack_interval_min": 0.8,
+					"attack_interval_max": 2.4,
+					"attack_radius": 32.0,
+					"speed_multiplier": 1.0,
+					"x_max_rotation": 60.0,
+					"y_max_head_rotation": 60.0
+				},
+				"minecraft:shooter": {
+					"def": "resurge:arrow_mob<resurge:skeleton_arrow>"
+				},
+				"minecraft:environment_sensor": {
+					"triggers": [
+						{
+							"filters": {
+								"test": "has_ranged_weapon",
+								"value": false
+							},
+							"event": "resurge:normal_melee_mode"
+						},
+						{
+							"filters": {
+								"test": "in_block",
+								"subject": "self",
+								"operator": "==",
+								"value": "minecraft:powder_snow"
+							},
+							"event": "got_in_powder_snow"
+						}
+					]
+				}
+			},
+
+			"resurge:death_door_property": {
+				"minecraft:mark_variant": {
+					"value": 1 //标识死门状态
+				},
+				"minecraft:damage_over_time": {
+					"damage_per_hurt": 1,
+					"time_between_hurt": 0.8
+				}
+			},
+			"resurge:death_door_melee_mode": {
+				"minecraft:behavior.melee_attack": {
+					"priority": 1,
+					"track_target": true,
+					"speed_multiplier": 1.0,
+					"cooldown_time": 0.5
+				},
+				"minecraft:attack": {
+					"damage": 5
+				},
+				"minecraft:environment_sensor": {
+					"triggers": [
+						{
+							"filters": {
+								"test": "has_ranged_weapon",
+								"value": true
+							},
+							"event": "resurge:death_door_ranged_mode"
+						}
+						// 不再检测是否在细雪中
+					]
+				}
+			},
+			"resurge:death_door_ranged_mode": {
+				"minecraft:behavior.avoid_mob_type": {
+					"priority": 0,
+					"entity_types": [
+						{
+							"filters": {
+								"any_of": [
+									{
+										"test": "is_target",
+										"subject": "other",
+										"value": true
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "player"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "friend"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "darkness"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "wolf"
+									}
+								]
+							},
+							"max_dist": 6
+						}
+					],
+					"avoid_target_xz": 12,
+					"avoid_target_y": 6,
+					"max_dist": 6,
+					"max_flee": 2,
+					"ignore_visibility": false
+				},
+				"minecraft:behavior.ranged_attack": {
+					"priority": 1,
+					"attack_interval_min": 0.4,
+					"attack_interval_max": 1.2,
+					"attack_radius": 20.0,
+					"speed_multiplier": 1.0,
+					"x_max_rotation": 60.0,
+					"y_max_head_rotation": 60.0
+				},
+				"minecraft:shooter": {
+					"def": "resurge:arrow_mob<resurge:skeleton_arrow>"
+				},
+				"minecraft:environment_sensor": {
+					"triggers": [
+						{
+							"filters": {
+								"test": "has_ranged_weapon",
+								"value": false
+							},
+							"event": "resurge:death_door_melee_mode"
+						}
+						// 不再检测是否在细雪中
+					]
+				}
+			},
+
+			"resurge:damage_stage0": {
+				"minecraft:damage_sensor": {
+					"triggers": [
+						{
+							"cause": "fall",
+							"deals_damage": false
+						},
+						{
+							"on_damage": {
+								"filters": {
+									"test": "is_family",
+									"subject": "other",
+									"value": "lightning"
+								},
+								"event": "resurge:rage"
+							},
+							"deals_damage": false
+						},
+						{
+							"on_damage": {
+								"filters": [
+									{
+										"any_of": [
+											{
+												"test": "has_damage",
+												"subject": "self",
+												"value": "attack"
+											},
+											{
+												"test": "has_damage",
+												"subject": "self",
+												"value": "magic"
+											},
+											{
+												"test": "has_damage",
+												"subject": "self",
+												"value": "projectile"
+											},
+											{
+												"test": "has_damage",
+												"subject": "self",
+												"value": "sonic_boom"
+											}
+										]
+									},
+									{
+										"test": "is_mark_variant",
+										"subject": "self",
+										"value": 1
+									}
+								],
+								"event": "universal:get_real_damage_1",
+								"target": "other"
+							}
+						}
+					]
+				}
+			},
+			"resurge:damage_stage1": {
+				"minecraft:damage_sensor": {
+					"triggers": [
+						{
+							"cause": "fall",
+							"deals_damage": false
+						},
+						{
+							"on_damage": {
+								"filters": {
+									"test": "is_family",
+									"subject": "other",
+									"value": "lightning"
+								},
+								"event": "resurge:rage"
+							},
+							"deals_damage": false
+						},
+						{
+							"on_damage": {
+								"filters": {
+									"all_of": [
+										{
+											"test": "has_damage",
+											"subject": "self",
+											"value": "fatal"
+										},
+										{
+											"test": "random_chance",
+											"value": 32
+										},
+                                        {
+                                            "test": "is_mark_variant",
+                                            "subject": "self",
+                                            "value": 0
+                                        }
+									]
+								},
+								"event": "resurge:random_select_rage",
+								"target": "self"
+							},
+							"damage_modifier": -10000 //此处使用减法将伤害降至0，以正常显示受伤动画
+						},
+						{
+							"on_damage": {
+								"filters": [
+									{
+										"any_of": [
+											{
+												"test": "has_damage",
+												"subject": "self",
+												"value": "attack"
+											},
+											{
+												"test": "has_damage",
+												"subject": "self",
+												"value": "magic"
+											},
+											{
+												"test": "has_damage",
+												"subject": "self",
+												"value": "projectile"
+											},
+											{
+												"test": "has_damage",
+												"subject": "self",
+												"value": "sonic_boom"
+											}
+										]
+									},
+									{
+										"test": "is_mark_variant",
+										"subject": "self",
+										"value": 1
+									}
+								],
+								"event": "universal:get_real_damage_1",
+								"target": "other"
+							}
+						}
+					]
+				}
+			},
+			"resurge:damage_stage2": {
+				"minecraft:damage_sensor": {
+					"triggers": [
+						{
+							"cause": "fall",
+							"deals_damage": false
+						},
+						{
+							"on_damage": {
+								"filters": {
+									"test": "is_family",
+									"subject": "other",
+									"value": "lightning"
+								},
+								"event": "resurge:rage"
+							},
+							"deals_damage": false
+						},
+						{
+							"on_damage": {
+								"filters": {
+									"all_of": [
+										{
+											"test": "has_damage",
+											"subject": "self",
+											"value": "fatal"
+										},
+										{
+											"test": "random_chance",
+											"value": 16
+										},
+                                        {
+                                            "test": "is_mark_variant",
+                                            "subject": "self",
+                                            "value": 0
+                                        }
+									]
+								},
+								"event": "resurge:random_select_rage",
+								"target": "self"
+							},
+							"damage_modifier": -10000 //此处使用减法将伤害降至0，以正常显示受伤动画
+						},
+						{
+							"on_damage": {
+								"filters": [
+									{
+										"any_of": [
+											{
+												"test": "has_damage",
+												"subject": "self",
+												"value": "attack"
+											},
+											{
+												"test": "has_damage",
+												"subject": "self",
+												"value": "magic"
+											},
+											{
+												"test": "has_damage",
+												"subject": "self",
+												"value": "projectile"
+											},
+											{
+												"test": "has_damage",
+												"subject": "self",
+												"value": "sonic_boom"
+											}
+										]
+									},
+									{
+										"test": "is_mark_variant",
+										"subject": "self",
+										"value": 1
+									}
+								],
+								"event": "universal:get_real_damage_1",
+								"target": "other"
+							}
+						}
+					]
+				}
+			},
+			"resurge:damage_stage3": {
+				"minecraft:damage_sensor": {
+					"triggers": [
+						{
+							"cause": "fall",
+							"deals_damage": false
+						},
+						{
+							"on_damage": {
+								"filters": {
+									"test": "is_family",
+									"subject": "other",
+									"value": "lightning"
+								},
+								"event": "resurge:rage"
+							},
+							"deals_damage": false
+						},
+						{
+							"on_damage": {
+								"filters": {
+									"all_of": [
+										{
+											"test": "has_damage",
+											"subject": "self",
+											"value": "fatal"
+										},
+										{
+											"test": "random_chance",
+											"value": 8
+										},
+                                        {
+                                            "test": "is_mark_variant",
+                                            "subject": "self",
+                                            "value": 0
+                                        }
+									]
+								},
+								"event": "resurge:random_select_rage",
+								"target": "self"
+							},
+							"damage_modifier": -10000 //此处使用减法将伤害降至0，以正常显示受伤动画
+						},
+						{
+							"on_damage": {
+								"filters": [
+									{
+										"any_of": [
+											{
+												"test": "has_damage",
+												"subject": "self",
+												"value": "attack"
+											},
+											{
+												"test": "has_damage",
+												"subject": "self",
+												"value": "magic"
+											},
+											{
+												"test": "has_damage",
+												"subject": "self",
+												"value": "projectile"
+											},
+											{
+												"test": "has_damage",
+												"subject": "self",
+												"value": "sonic_boom"
+											}
+										]
+									},
+									{
+										"test": "is_mark_variant",
+										"subject": "self",
+										"value": 1
+									}
+								],
+								"event": "universal:get_real_damage_1",
+								"target": "other"
+							}
+						}
+					]
+				}
+			},
+			"resurge:damage_stage4": {
+				"minecraft:damage_sensor": {
+					"triggers": [
+						{
+							"cause": "fall",
+							"deals_damage": false
+						},
+						{
+							"on_damage": {
+								"filters": {
+									"test": "is_family",
+									"subject": "other",
+									"value": "lightning"
+								},
+								"event": "resurge:rage"
+							},
+							"deals_damage": false
+						},
+						{
+							"on_damage": {
+								"filters": {
+									"all_of": [
+										{
+											"test": "has_damage",
+											"subject": "self",
+											"value": "fatal"
+										},
+										{
+											"test": "random_chance",
+											"value": 4
+										},
+                                        {
+                                            "test": "is_mark_variant",
+                                            "subject": "self",
+                                            "value": 0
+                                        }
+									]
+								},
+								"event": "resurge:random_select_rage",
+								"target": "self"
+							},
+							"damage_modifier": -10000 //此处使用减法将伤害降至0，以正常显示受伤动画
+						},
+						{
+							"on_damage": {
+								"filters": [
+									{
+										"any_of": [
+											{
+												"test": "has_damage",
+												"subject": "self",
+												"value": "attack"
+											},
+											{
+												"test": "has_damage",
+												"subject": "self",
+												"value": "magic"
+											},
+											{
+												"test": "has_damage",
+												"subject": "self",
+												"value": "projectile"
+											},
+											{
+												"test": "has_damage",
+												"subject": "self",
+												"value": "sonic_boom"
+											}
+										]
+									},
+									{
+										"test": "is_mark_variant",
+										"subject": "self",
+										"value": 1
+									}
+								],
+								"event": "universal:get_real_damage_1",
+								"target": "other"
+							}
+						}
+					]
+				}
+			},
+
+			"resurge:rage": {
+				"minecraft:transformation": {
+					"into": "resurge:skeleton_raged",
+					"preserve_equipment": true
+				}
+			},
+
+			"resurge:moon_rage_timer": {
+				"minecraft:timer": {
+					"looping": false,
+					"time": [0, 30],
+					"time_down_event": {
+						"event": "resurge:moon_rage"
+					}
+				},
+				"minecraft:is_shaking": {}
+			},
+
+			"resurge:moon_rage": {
+				"minecraft:transformation": {
+					"into": "resurge:skeleton_raged<resurge:from_moon>",
+					"preserve_equipment": true
+				}
+			}
+		},
+
+		"components": {
+			"minecraft:is_hidden_when_invisible": {},
+			"minecraft:experience_reward": {
+				"on_death": "query.last_hit_by_player ? 7 + (query.equipment_count * Math.Random(1,3)) : Math.Random(0,1)"
+			},
+			"minecraft:equip_item": {},
+			"minecraft:collision_box": {
+				"width": 0.6,
+				"height": 1.9
+			},
+			"minecraft:type_family": {
+				"family": ["skeleton", "undead", "monster", "mob"]
+			},
+			"minecraft:breathable": {
+				"total_supply": 15,
+				"suffocate_time": 0,
+				"breathes_water": true
+			},
+
+			"minecraft:break_blocks": {
+				"breakable_blocks": ["web", "cactus", "bamboo", "sweet_berry_bush"]
+			},
+
+			"minecraft:burns_in_daylight": {},
+			"minecraft:health": {
+				"value": 36,
+				"max": 36
+			},
+			"minecraft:hurt_on_condition": {
+				"damage_conditions": [
+					{
+						"filters": {
+							"test": "in_lava",
+							"subject": "self",
+							"operator": "==",
+							"value": true
+						},
+						"cause": "lava",
+						"damage_per_tick": 4
+					}
+				]
+			},
+
+			"minecraft:loot": {
+				"table": "loot_tables/entities/skeleton.json"
+			},
+			"minecraft:equipment": {
+				"table": "loot_tables/entities/skeleton_gear.json",
+				"slot_drop_chance": [
+					{
+						"slot": "slot.weapon.mainhand",
+						"drop_chance": 0.05
+					}
+				]
+			},
+
+			"minecraft:friction_modifier": {
+				"value": 1.0
+			},
+			"minecraft:movement": {
+				"value": 0.4
+			},
+			"minecraft:underwater_movement": {
+				"value": 0.16
+			},
+			"minecraft:navigation.fly": {
+				"is_amphibious": true,
+				"avoid_sun": true,
+				"avoid_water": true,
+				"can_swim": true,
+				"can_path_over_water": true
+			},
+			"minecraft:movement.basic": {
+				"max_turn": 60.0
+			},
+			"minecraft:preferred_path": {
+				"max_fall_blocks": 256
+			},
+			"minecraft:jump.static": {},
+			"minecraft:can_climb": {},
+			"minecraft:can_fly": {},
+			"minecraft:floats_in_liquid": {},
+			"minecraft:nameable": {},
+
+			"minecraft:despawn": {
+				"despawn_from_distance": {}
+			},
+			"minecraft:shareables": {
+				"items": [
+					{
+						"item": "minecraft:trident",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 0
+					},
+
+					{
+						"item": "minecraft:netherite_sword",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 0
+					},
+					{
+						"item": "minecraft:diamond_sword",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 1
+					},
+					{
+						"item": "minecraft:iron_sword",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 2
+					},
+					{
+						"item": "minecraft:stone_sword",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 3
+					},
+					{
+						"item": "minecraft:golden_sword",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 4
+					},
+					{
+						"item": "minecraft:wooden_sword",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 5
+					},
+					{
+						"item": "minecraft:bow",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 6
+					},
+					{
+						"item": "minecraft:netherite_helmet",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 0
+					},
+					{
+						"item": "minecraft:diamond_helmet",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 1
+					},
+					{
+						"item": "minecraft:iron_helmet",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 2
+					},
+					{
+						"item": "minecraft:chainmail_helmet",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 3
+					},
+					{
+						"item": "minecraft:golden_helmet",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 4
+					},
+					{
+						"item": "minecraft:leather_helmet",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 5
+					},
+					{
+						"item": "minecraft:turtle_helmet",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 6
+					},
+					{
+						"item": "minecraft:skull:0",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 7
+					},
+					{
+						"item": "minecraft:skull:1",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 7
+					},
+					{
+						"item": "minecraft:carved_pumpkin",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 7
+					},
+					{
+						"item": "minecraft:netherite_chestplate",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 0
+					},
+					{
+						"item": "minecraft:diamond_chestplate",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 1
+					},
+					{
+						"item": "minecraft:iron_chestplate",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 2
+					},
+					{
+						"item": "minecraft:chainmail_chestplate",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 3
+					},
+					{
+						"item": "minecraft:golden_chestplate",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 4
+					},
+					{
+						"item": "minecraft:leather_chestplate",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 5
+					},
+					{
+						"item": "minecraft:netherite_leggings",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 0
+					},
+					{
+						"item": "minecraft:diamond_leggings",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 1
+					},
+					{
+						"item": "minecraft:iron_leggings",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 2
+					},
+					{
+						"item": "minecraft:chainmail_leggings",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 3
+					},
+					{
+						"item": "minecraft:golden_leggings",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 4
+					},
+					{
+						"item": "minecraft:leather_leggings",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 5
+					},
+					{
+						"item": "minecraft:netherite_boots",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 0
+					},
+					{
+						"item": "minecraft:diamond_boots",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 1
+					},
+					{
+						"item": "minecraft:iron_boots",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 2
+					},
+					{
+						"item": "minecraft:chainmail_boots",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 3
+					},
+					{
+						"item": "minecraft:golden_boots",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 4
+					},
+					{
+						"item": "minecraft:leather_boots",
+						"want_amount": 1,
+						"surplus_amount": 1,
+						"priority": 5
+					}
+				]
+			},
+
+			"minecraft:follow_range": {
+				"value": 48,
+				"max": 48
+			},
+
+			"minecraft:behavior.summon_entity": {
+				"priority": 0,
+				"summon_choices": [
+					{
+						"min_activation_range": 0.0,
+						"max_activation_range": 12.0,
+						"cooldown_time": 90.0,
+						"weight": 1,
+						"cast_duration": 1.6,
+						"do_casting": true,
+						"particle_color": "#FFE9E9E9",
+						"start_sound_event": "cast.spell",
+						"sequence": [
+							{
+								"shape": "circle",
+								"target": "self",
+								"base_delay": 1.0,
+								"delay_per_summon": 0.2,
+								"summon_cap": 6,
+								"summon_cap_radius": 10.0,
+								"entity_type": "minecraft:silverfish",
+								"num_entities_spawned": 3,
+								"entity_lifespan": 120,
+								"size": 1.0
+							}
+						]
+					}
+				]
+			},
+			"minecraft:behavior.hurt_by_target": {
+				"priority": 2,
+				"alert_same_type": true,
+				"entity_types": [
+					{
+						"filters": {
+							"all_of": [
+								{
+									"test": "is_family",
+									"subject": "other",
+									"operator": "!=",
+									"value": "skeleton"
+								},
+								{
+									"test": "is_family",
+									"subject": "other",
+									"operator": "!=",
+									"value": "witch"
+								},
+								{
+									"test": "is_family",
+									"subject": "other",
+									"operator": "!=",
+									"value": "arthropod"
+								}
+							]
+						}
+					}
+				]
+			},
+			"minecraft:behavior.nearest_attackable_target": {
+				"priority": 3,
+				"must_reach": false,
+				"must_see": false, //因filter内部进行了定义，此处实际无效
+				"must_see_forget_duration": 20.0,
+				"persist_time": 3,
+				"reselect_targets": true,
+				"within_radius": 48.0, //因定义了follow_range，此处实际无效
+				"entity_types": [
+					{
+						"filters": {
+							"any_of": [
+								{
+									"test": "is_family",
+									"subject": "other",
+									"value": "player"
+								},
+								{
+									"test": "is_family",
+									"subject": "other",
+									"value": "friend"
+								}
+							]
+						},
+						"max_dist": 32,
+						"must_see": false
+					},
+					{
+						"filters": {
+							"any_of": [
+								{
+									"test": "is_family",
+									"subject": "other",
+									"value": "allay"
+								},
+								{
+									"test": "is_family",
+									"subject": "other",
+									"value": "bee"
+								},
+								{
+									"test": "is_family",
+									"subject": "other",
+									"value": "turtle"
+								},
+								{
+									"test": "is_family",
+									"subject": "other",
+									"value": "wolf"
+								}
+							]
+						},
+						"max_dist": 32,
+						"must_see": true
+					}
+				]
+			},
+			"minecraft:behavior.flee_sun": {
+				"priority": 3,
+				"speed_multiplier": 1.2
+			},
+			"minecraft:behavior.equip_item": {
+				"priority": 4
+			},
+			"minecraft:behavior.pickup_items": {
+				"priority": 5,
+				"max_dist": 6,
+				"goal_radius": 3,
+				"speed_multiplier": 1.0,
+				"pickup_based_on_chance": true,
+				"can_pickup_any_item": true
+			},
+			"minecraft:behavior.random_stroll": {
+				"priority": 6,
+				"speed_multiplier": 1
+			},
+			"minecraft:behavior.look_at_player": {
+				"priority": 7,
+				"look_distance": 8
+			},
+			"minecraft:behavior.random_look_around": {
+				"priority": 8
+			},
+
+			"minecraft:environment_sensor": {
+				"triggers": [
+					{
+						"filters": {
+							"test": "has_ranged_weapon",
+							"value": false
+						},
+						"event": "resurge:normal_melee_mode"
+					},
+					{
+						"filters": {
+							"test": "has_ranged_weapon",
+							"value": true
+						},
+						"event": "resurge:normal_ranged_mode"
+					}
+				]
+			},
+
+			"minecraft:physics": {},
+			"minecraft:pushable": {
+				"is_pushable": true,
+				"is_pushable_by_piston": true
+			},
+			"minecraft:conditional_bandwidth_optimization": {}
+		},
+
+		"events": {
+			"minecraft:entity_spawned": {},
+			"become_stray_event": {
+				"add": {
+					"component_groups": ["become_stray"]
+				}
+			},
+			"got_in_powder_snow": {
+				"add": {
+					"component_groups": ["in_powder_snow"]
+				}
+			},
+			"got_out_of_powder_snow": {
+				"remove": {
+					"component_groups": ["in_powder_snow"]
+				},
+				"add": {
+					"component_groups": ["got_out_of_powder_snow_environment_sensor"]
+				}
+			},
+
+			"resurge:normal_melee_mode": {
+				"add": {
+					"component_groups": ["resurge:normal_melee_mode"]
+				},
+				"remove": {
+					"component_groups": [
+						"resurge:normal_ranged_mode",
+						"got_out_of_powder_snow_environment_sensor"
+					]
+				}
+			},
+			"resurge:normal_ranged_mode": {
+				"add": {
+					"component_groups": ["resurge:normal_ranged_mode"]
+				},
+				"remove": {
+					"component_groups": [
+						"resurge:normal_melee_mode",
+						"got_out_of_powder_snow_environment_sensor"
+					]
+				}
+			},
+
+			"resurge:death_door_melee_mode": {
+				"add": {
+					"component_groups": ["resurge:death_door_melee_mode"]
+				},
+				"remove": {
+					//直接终止流浪者转换过程
+					"component_groups": [
+						"resurge:death_door_ranged_mode",
+						"in_powder_snow",
+						"got_out_of_powder_snow_environment_sensor"
+					]
+				}
+			},
+			"resurge:death_door_ranged_mode": {
+				"add": {
+					"component_groups": ["resurge:death_door_ranged_mode"]
+				},
+				"remove": {
+					//直接终止流浪者转换过程
+					"component_groups": [
+						"resurge:death_door_melee_mode",
+						"in_powder_snow",
+						"got_out_of_powder_snow_environment_sensor"
+					]
+				}
+			},
+
+			"resurge:moon_stage0": {
+				"add": {
+					"component_groups": ["resurge:damage_stage0"]
+				},
+				"remove": {
+					"component_groups": [
+						"resurge:damage_stage1",
+						"resurge:damage_stage2",
+						"resurge:damage_stage3",
+						"resurge:damage_stage4",
+						"resurge:moon_rage_timer"
+					]
+				}
+			},
+			"resurge:moon_stage1": {
+				"add": {
+					"component_groups": ["resurge:damage_stage1"]
+				},
+				"remove": {
+					"component_groups": [
+						"resurge:damage_stage0",
+						"resurge:damage_stage2",
+						"resurge:damage_stage3",
+						"resurge:damage_stage4",
+						"resurge:moon_rage_timer"
+					]
+				}
+			},
+			"resurge:moon_stage2": {
+				"add": {
+					"component_groups": ["resurge:damage_stage2"]
+				},
+				"remove": {
+					"component_groups": [
+						"resurge:damage_stage0",
+						"resurge:damage_stage1",
+						"resurge:damage_stage3",
+						"resurge:damage_stage4",
+						"resurge:moon_rage_timer"
+					]
+				}
+			},
+			"resurge:moon_stage3": {
+				"add": {
+					"component_groups": ["resurge:damage_stage3"]
+				},
+				"remove": {
+					"component_groups": [
+						"resurge:damage_stage0",
+						"resurge:damage_stage1",
+						"resurge:damage_stage2",
+						"resurge:damage_stage4",
+						"resurge:moon_rage_timer"
+					]
+				}
+			},
+			"resurge:moon_stage4_day": {
+				"add": {
+					"component_groups": ["resurge:damage_stage4"]
+				},
+				"remove": {
+					"component_groups": [
+						"resurge:damage_stage0",
+						"resurge:damage_stage1",
+						"resurge:damage_stage2",
+						"resurge:damage_stage3",
+						"resurge:moon_rage_timer"
+					]
+				}
+			},
+			"resurge:moon_stage4_night": {
+				"sequence": [
+					{
+						//此处主动关闭流浪者转换，以避免出现流浪者转换timer被覆盖，无法恢复的情况
+						"remove": {
+							"component_groups": ["in_powder_snow"]
+						}
+					},
+					{
+						//如果不在死门状态，再添加新的细雪检测器
+						"filters": {
+							"test": "has_component",
+							"operator": "!=",
+							"value": "minecraft:damage_over_time"
+						},
+						"add": {
+							"component_groups": ["got_out_of_powder_snow_environment_sensor"]
+						}
+					},
+					{
+						"add": {
+							"component_groups": [
+								"resurge:damage_stage4",
+								"resurge:moon_rage_timer"
+							]
+						},
+						"remove": {
+							"component_groups": [
+								"resurge:damage_stage0",
+								"resurge:damage_stage1",
+								"resurge:damage_stage2",
+								"resurge:damage_stage3"
+							]
+						}
+					}
+				]
+			},
+
+			"resurge:random_select_rage": {
+				"randomize": [
+					{
+						"weight": 60,
+						"add": {
+							"component_groups": ["resurge:rage"]
+						}
+					},
+					{
+						"weight": 40,
+						"sequence": [
+							{
+								"filters": {
+									"any_of": [
+										{
+											"test": "is_underwater",
+											"value": true
+										},
+										{
+											"test": "has_ranged_weapon",
+											"value": false
+										}
+									]
+								},
+								"add": {
+									"component_groups": [
+										"resurge:death_door_property",
+										"resurge:death_door_melee_mode"
+									]
+								}
+							},
+							{
+								"filters": {
+									"all_of": [
+										{
+											"test": "is_underwater",
+											"value": false
+										},
+										{
+											"test": "has_ranged_weapon",
+											"value": true
+										}
+									]
+								},
+								"add": {
+									"component_groups": [
+										"resurge:death_door_property",
+										"resurge:death_door_ranged_mode"
+									]
+								}
+							}
+						],
+						"remove": {
+							//直接终止流浪者转换过程
+							"component_groups": [
+								"in_powder_snow",
+								"got_out_of_powder_snow_environment_sensor"
+							]
+						},
+						"run_command": {
+							"command": [
+								"effect @s resistance 600 3 false",
+								"effect @s speed 600 1 false"
+							]
+						}
+					}
+				]
+			},
+			"resurge:random_rage": {
+				"randomize": [
+					{
+						"weight": 75
+					},
+					{
+						"weight": 25,
+						"add": {
+							"component_groups": ["resurge:rage"]
+						}
+					}
+				]
+			},
+			"resurge:rage": {
+				"add": {
+					"component_groups": ["resurge:rage"]
+				}
+			},
+			"resurge:moon_rage": {
+				"add": {
+					"component_groups": ["resurge:moon_rage"]
+				}
+			},
+
+			"universal:lightning_bolt_attack": {
+				"run_command": {
+					"command": ["summon lightning_bolt"]
+				}
+			},
+
+			"universal:get_real_damage_1": {
+				"run_command": {
+					"command": ["damage @s 1 none @s"]
+				}
+			},
+			"universal:get_real_damage_2": {
+				"run_command": {
+					"command": ["damage @s 2 none @s"]
+				}
+			},
+			"universal:get_real_damage_3": {
+				"run_command": {
+					"command": ["damage @s 3 none @s"]
+				}
+			},
+			"universal:get_real_damage_4": {
+				"run_command": {
+					"command": ["damage @s 4 none @s"]
+				}
+			},
+			"universal:get_real_damage_5": {
+				"run_command": {
+					"command": ["damage @s 5 none @s"]
+				}
+			},
+			"universal:get_real_damage_6": {
+				"run_command": {
+					"command": ["damage @s 6 none @s"]
+				}
+			},
+			"universal:get_real_damage_7": {
+				"run_command": {
+					"command": ["damage @s 7 none @s"]
+				}
+			},
+			"universal:get_real_damage_8": {
+				"run_command": {
+					"command": ["damage @s 8 none @s"]
+				}
+			},
+			"universal:get_real_damage_9": {
+				"run_command": {
+					"command": ["damage @s 9 none @s"]
+				}
+			},
+			"universal:get_real_damage_10": {
+				"run_command": {
+					"command": ["damage @s 10 none @s"]
+				}
+			}
+		}
+	}
+}

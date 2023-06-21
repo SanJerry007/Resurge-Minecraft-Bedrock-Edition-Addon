@@ -1,0 +1,210 @@
+{
+	"format_version": "1.16.0",
+	"animation_controllers": {
+		"controller.animation.entity.raged.random_hunt": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"targeted": "query.has_target"
+						}
+					]
+				},
+				"targeted": {
+					"on_entry": ["variable.rand_number = 1;"],
+					"transitions": [
+						{
+							"default": "!query.has_target"
+						},
+						{
+							"stage0": "query.moon_brightness == 0.0"
+						},
+						{
+							"stage1": "query.moon_brightness == 0.25"
+						},
+						{
+							"stage2": "query.moon_brightness == 0.5"
+						},
+						{
+							"stage3": "query.moon_brightness == 0.75"
+						},
+						{
+							"stage4": "query.moon_brightness == 1.0"
+						}
+					]
+				},
+				"stage0": {
+					"on_entry": [
+						"variable.last_time = query.life_time;",
+						"variable.hunt = (variable.rand_number <= 0.01);"
+					],
+					"transitions": [
+						{
+							"default": "!query.has_target"
+						},
+						{
+							"targeted": "!query.moon_brightness == 0.0"
+						},
+						{
+							"update_rand_number": "(query.life_time - variable.last_time) >= 1"
+						},
+						{
+							"hunt": "variable.hunt"
+						}
+					]
+				},
+				"stage1": {
+					"on_entry": [
+						"variable.last_time = query.life_time;",
+						"variable.hunt = (variable.rand_number <= 0.015);"
+					],
+					"transitions": [
+						{
+							"default": "!query.has_target"
+						},
+						{
+							"targeted": "!query.moon_brightness == 0.25"
+						},
+						{
+							"update_rand_number": "(query.life_time - variable.last_time) >= 1"
+						},
+						{
+							"hunt": "variable.hunt"
+						}
+					]
+				},
+				"stage2": {
+					"on_entry": [
+						"variable.last_time = query.life_time;",
+						"variable.hunt = (variable.rand_number <= 0.02);"
+					],
+					"transitions": [
+						{
+							"default": "!query.has_target"
+						},
+						{
+							"targeted": "!query.moon_brightness == 0.5"
+						},
+						{
+							"update_rand_number": "(query.life_time - variable.last_time) >= 1"
+						},
+						{
+							"hunt": "variable.hunt"
+						}
+					]
+				},
+				"stage3": {
+					"on_entry": [
+						"variable.last_time = query.life_time;",
+						"variable.hunt = (variable.rand_number <= 0.025);"
+					],
+					"transitions": [
+						{
+							"default": "!query.has_target"
+						},
+						{
+							"targeted": "!query.moon_brightness == 0.75"
+						},
+						{
+							"update_rand_number": "(query.life_time - variable.last_time) >= 1"
+						},
+						{
+							"hunt": "variable.hunt"
+						}
+					]
+				},
+				"stage4": {
+					"on_entry": [
+						"variable.last_time = query.life_time;",
+						"variable.hunt = (variable.rand_number <= 0.03);"
+					],
+					"transitions": [
+						{
+							"default": "!query.has_target"
+						},
+						{
+							"targeted": "!query.moon_brightness == 1.0"
+						},
+						{
+							"update_rand_number": "(query.life_time - variable.last_time) >= 1"
+						},
+						{
+							"hunt": "variable.hunt"
+						}
+					]
+				},
+				"hunt": {
+					"on_entry": ["variable.rand_number = 1;", "@s resurge:hunt_mode"],
+					"transitions": [
+						{
+							"stage0": "query.moon_brightness == 0.0"
+						},
+						{
+							"stage1": "query.moon_brightness == 0.25"
+						},
+						{
+							"stage2": "query.moon_brightness == 0.5"
+						},
+						{
+							"stage3": "query.moon_brightness == 0.75"
+						},
+						{
+							"stage4": "query.moon_brightness == 1.0"
+						}
+					]
+				},
+				"update_rand_number": {
+					"on_entry": ["variable.rand_number = math.random(0, 1);"],
+					"transitions": [
+						{
+							"stage0": "query.moon_brightness == 0.0"
+						},
+						{
+							"stage1": "query.moon_brightness == 0.25"
+						},
+						{
+							"stage2": "query.moon_brightness == 0.5"
+						},
+						{
+							"stage3": "query.moon_brightness == 0.75"
+						},
+						{
+							"stage4": "query.moon_brightness == 1.0"
+						}
+					]
+				}
+			}
+		},
+
+		"controller.animation.entity.raged.full_moon_stage": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"non_full_moon_night": "!(query.moon_brightness == 1.0 && !(query.time_of_day >= 0.25 && query.time_of_day < 0.75))"
+						},
+						{
+							"full_moon_night": "query.moon_brightness == 1.0 && !(query.time_of_day >= 0.25 && query.time_of_day < 0.75)"
+						}
+					]
+				},
+				"non_full_moon_night": {
+					"on_entry": ["@s resurge:non_full_moon_night"],
+					"transitions": [
+						{
+							"default": "query.moon_brightness == 1.0 && !(query.time_of_day >= 0.25 && query.time_of_day < 0.75)"
+						}
+					]
+				},
+				"full_moon_night": {
+					"on_entry": ["@s resurge:full_moon_night"],
+					"transitions": [
+						{
+							"default": "!(query.moon_brightness == 1.0 && !(query.time_of_day >= 0.25 && query.time_of_day < 0.75))"
+						}
+					]
+				}
+			}
+		}
+	}
+}

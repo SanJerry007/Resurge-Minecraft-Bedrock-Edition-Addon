@@ -1,0 +1,16 @@
+{
+	"format_version": "1.16.0",
+	"render_controllers": {
+		"controller.render.dummy_entity": {
+			"geometry": "Geometry.default",
+			"textures": [
+				"Texture.default"
+			],
+			"materials": [
+				{
+					"*": "Material.default"
+				}
+			]
+		}
+	}
+}

@@ -1,0 +1,125 @@
+{
+	"mob.zombie_raged.say": {
+		"category": "hostile",
+		"sounds": [
+			"sounds/mob/zombie_raged/say1",
+			"sounds/mob/zombie_raged/say2",
+			"sounds/mob/zombie_raged/say3"
+		]
+	},
+	"mob.zombie_raged.death": {
+		"category": "hostile",
+		"sounds": ["sounds/mob/zombie_raged/death"]
+	},
+	"mob.zombie_raged.hurt": {
+		"category": "hostile",
+		"sounds": [
+			"sounds/mob/zombie_raged/hurt1",
+			"sounds/mob/zombie_raged/hurt2"
+		]
+	},
+
+	"mob.husk_raged.ambient": {
+		"category": "hostile",
+		"sounds": [
+			"sounds/mob/husk_raged/idle1",
+			"sounds/mob/husk_raged/idle2",
+			"sounds/mob/husk_raged/idle3"
+		]
+	},
+	"mob.husk_raged.death": {
+		"category": "hostile",
+		"sounds": [
+			"sounds/mob/husk_raged/death1",
+			"sounds/mob/husk_raged/death2"
+		]
+	},
+	"mob.husk_raged.hurt": {
+		"category": "hostile",
+		"sounds": [
+			"sounds/mob/husk_raged/hurt1",
+			"sounds/mob/husk_raged/hurt2"
+		]
+	},
+
+	"mob.drowned_raged.say_water": {
+		"category": "hostile",
+		"sounds": [
+			"sounds/mob/drowned_raged/water/idle1",
+			{
+				"name": "sounds/mob/drowned_raged/water/idle2",
+				"load_on_low_memory": true
+			},
+			"sounds/mob/drowned_raged/water/idle3",
+			"sounds/mob/drowned_raged/water/idle4"
+		]
+	},
+	"mob.drowned_raged.death_water": {
+		"category": "hostile",
+		"sounds": [
+			"sounds/mob/drowned_raged/water/death1",
+			"sounds/mob/drowned_raged/water/death2"
+		]
+	},
+	"mob.drowned_raged.hurt_water": {
+		"category": "hostile",
+		"sounds": [
+			"sounds/mob/drowned_raged/water/hurt1",
+			"sounds/mob/drowned_raged/water/hurt2",
+			"sounds/mob/drowned_raged/water/hurt3"
+		]
+	},
+	"mob.drowned_raged.say": {
+		"category": "hostile",
+		"sounds": [
+			"sounds/mob/drowned_raged/idle1",
+			{
+				"name": "sounds/mob/drowned_raged/idle2",
+				"load_on_low_memory": true
+			},
+			"sounds/mob/drowned_raged/idle3",
+			"sounds/mob/drowned_raged/idle4",
+			"sounds/mob/drowned_raged/idle5"
+		]
+	},
+	"mob.drowned_raged.death": {
+		"category": "hostile",
+		"sounds": [
+			"sounds/mob/drowned_raged/death1",
+			"sounds/mob/drowned_raged/death2"
+		]
+	},
+	"mob.drowned_raged.hurt": {
+		"category": "hostile",
+		"sounds": [
+			"sounds/mob/drowned_raged/hurt1",
+			"sounds/mob/drowned_raged/hurt2",
+			"sounds/mob/drowned_raged/hurt3"
+		]
+	},
+
+	"mob.skeleton_raged.say": {
+		"category": "hostile",
+		"sounds": [
+			"sounds/mob/skeleton_raged/say1",
+			"sounds/mob/skeleton_raged/say2",
+			{
+				"name": "sounds/mob/skeleton_raged/say3",
+				"load_on_low_memory": true
+			}
+		]
+	},
+	"mob.skeleton_raged.hurt": {
+		"category": "hostile",
+		"sounds": [
+			"sounds/mob/skeleton_raged/hurt1",
+			"sounds/mob/skeleton_raged/hurt2",
+			"sounds/mob/skeleton_raged/hurt3",
+			"sounds/mob/skeleton_raged/hurt4"
+		]
+	},
+	"mob.skeleton_raged.death": {
+		"category": "hostile",
+		"sounds": ["sounds/mob/skeleton_raged/death"]
+	}
+}

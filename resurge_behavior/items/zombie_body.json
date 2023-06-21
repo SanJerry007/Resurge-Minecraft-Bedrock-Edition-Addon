@@ -1,0 +1,62 @@
+{
+	"format_version": "1.16.100",
+	"minecraft:item": {
+		"description": {
+			"identifier": "resurge:zombie_body",
+			"category": "nature"
+		},
+
+		"components": {
+			"minecraft:hand_equipped": false,
+			"minecraft:stacked_by_data": true,
+			"minecraft:use_duration": 1.6,
+			"minecraft:food": {
+				"nutrition": 12,
+				"saturation_modifier": "supernatural",
+				"can_always_eat": false,
+				"on_consume": {
+					"event": "consumed",
+					"target": "self"
+				}
+			},
+			"minecraft:use_animation": "eat",
+			"minecraft:icon": {
+				"texture": "zombie_body"
+			},
+			"minecraft:display_name": {
+				"value": "僵尸骨架"
+			}
+		},
+
+		"events": {
+			"consumed": {
+				"sequence": [
+					{
+						"add_mob_effect": {
+							"effect": "resistance",
+							"target": "holder",
+							"duration": 180,
+							"amplifier": 1
+						}
+					},
+					{
+						"add_mob_effect": {
+							"effect": "strength",
+							"target": "holder",
+							"duration": 180,
+							"amplifier": 0
+						}
+					},
+					{
+						"add_mob_effect": {
+							"effect": "slowness",
+							"target": "holder",
+							"duration": 180,
+							"amplifier": 1
+						}
+					}
+				]
+			}
+		}
+	}
+}

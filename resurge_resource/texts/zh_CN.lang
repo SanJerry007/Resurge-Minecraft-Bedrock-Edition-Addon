@@ -1,0 +1,13 @@
+
+entity.resurge:zombie_raged.name=§c狂暴僵尸§r
+entity.resurge:husk_raged.name=§c狂暴尸壳§r
+entity.resurge:drowned_raged.name=§c狂暴溺尸§r
+entity.resurge:skeleton_raged.name=§c狂暴骷髅§r
+entity.resurge:skeleton_raged<>.name=§c狂暴骷髅§r
+
+entity.resurge:thrown_thunder_trident.name=雷霆三叉戟
+
+item.spawn_egg.entity.resurge:zombie_raged.name=生成§c狂暴僵尸§r
+item.spawn_egg.entity.resurge:husk_raged.name=生成§c狂暴尸壳§r
+item.spawn_egg.entity.resurge:drowned_raged.name=生成§c狂暴溺尸§r
+item.spawn_egg.entity.resurge:skeleton_raged.name=生成§c狂暴骷髅§r

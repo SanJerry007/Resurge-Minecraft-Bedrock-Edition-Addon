@@ -1,0 +1,100 @@
+{
+	"format_version": "1.16.0",
+	"animation_controllers": {
+		"controller.animation.entity.normal.wet_detector": {
+			"states": {
+				"default": {
+					"on_entry": ["@s resurge:become_dry"],
+					"transitions": [
+						{
+							"wet": "query.is_in_water_or_rain"
+						}
+					]
+				},
+				"wet": {
+					"on_entry": ["@s resurge:become_wet"],
+					"transitions": [
+						{
+							"default": "!query.is_in_water_or_rain"
+						}
+					]
+				}
+			}
+		},
+
+		"controller.animation.entity.normal.moon_stage": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"moon_brightness0": "query.moon_brightness == 0.0"
+						},
+						{
+							"moon_brightness1": "query.moon_brightness == 0.25"
+						},
+						{
+							"moon_brightness2": "query.moon_brightness == 0.5"
+						},
+						{
+							"moon_brightness3": "query.moon_brightness == 0.75"
+						},
+						{
+							"moon_brightness4_day": "query.moon_brightness == 1.0 && query.time_of_day >= 0.25 && query.time_of_day < 0.75"
+						},
+						{
+							"moon_brightness4_night": "query.moon_brightness == 1.0 && !(query.time_of_day >= 0.25 && query.time_of_day < 0.75)"
+						}
+					]
+				},
+				"moon_brightness0": {
+					"on_entry": ["@s resurge:moon_stage0"],
+					"transitions": [
+						{
+							"default": "!query.moon_brightness == 0.0"
+						}
+					]
+				},
+				"moon_brightness1": {
+					"on_entry": ["@s resurge:moon_stage1"],
+					"transitions": [
+						{
+							"default": "!query.moon_brightness == 0.25"
+						}
+					]
+				},
+				"moon_brightness2": {
+					"on_entry": ["@s resurge:moon_stage2"],
+					"transitions": [
+						{
+							"default": "!query.moon_brightness == 0.5"
+						}
+					]
+				},
+				"moon_brightness3": {
+					"on_entry": ["@s resurge:moon_stage3"],
+					"transitions": [
+						{
+							"default": "!query.moon_brightness == 0.75"
+						}
+					]
+				},
+				"moon_brightness4_day": {
+					"on_entry": ["@s resurge:moon_stage4_day"],
+					"transitions": [
+						{
+							"default": "!(query.moon_brightness == 1.0 && query.time_of_day >= 0.25 && query.time_of_day < 0.75)"
+						}
+					]
+				},
+				"moon_brightness4_night": {
+					"on_entry": ["@s resurge:moon_stage4_night"],
+					"transitions": [
+						{
+							"default": "!(query.moon_brightness == 1.0 && !(query.time_of_day >= 0.25 && query.time_of_day < 0.75))"
+						}
+					]
+				}
+			}
+		}
+	}
+}

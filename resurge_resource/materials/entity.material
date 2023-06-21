@@ -1,0 +1,21 @@
+{
+	"materials": {
+		"version": "1.0.0",
+		"zombie_raged:entity_emissive_alpha": {},
+		"zombie_raged_invisible:entity_emissive_alpha": {
+			"+defines": ["USE_ONLY_EMISSIVE"]
+		},
+        "husk_raged:entity_emissive_alpha": {},
+		"husk_raged_invisible:entity_emissive_alpha": {
+			"+defines": ["USE_ONLY_EMISSIVE"]
+		},
+        "drowned_raged:entity_emissive_alpha": {},
+		"drowned_raged_invisible:entity_emissive_alpha": {
+			"+defines": ["USE_ONLY_EMISSIVE"]
+		},
+        "skeleton_raged:entity_emissive_alpha": {},
+		"skeleton_raged_invisible:entity_emissive_alpha": {
+			"+defines": ["USE_ONLY_EMISSIVE"]
+		}
+	}
+}

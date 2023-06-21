@@ -1,0 +1,35 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.skeleton.spell": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"casting": "query.is_casting"
+						}
+					]
+				},
+				"casting": {
+					"animations": ["look_at_target_default"],
+					"particle_effects": [
+						{
+							"effect": "spell",
+							"locator": "left_hand"
+						},
+						{
+							"effect": "spell",
+							"locator": "right_hand"
+						}
+					],
+					"transitions": [
+						{
+							"default": "!query.is_casting"
+						}
+					]
+				}
+			}
+		}
+	}
+}

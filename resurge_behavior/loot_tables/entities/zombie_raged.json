@@ -1,0 +1,168 @@
+{
+	"pools": [
+		{
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "item",
+					"name": "minecraft:rotten_flesh",
+					"weight": 49,
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 0,
+								"max": 3
+							}
+						},
+						{
+							"function": "looting_enchant",
+							"count": {
+								"min": 0,
+								"max": 2
+							}
+						}
+					]
+				},
+				{
+					"type": "item",
+					"name": "minecraft:leather",
+					"weight": 1,
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 0,
+								"max": 2
+							}
+						},
+						{
+							"function": "looting_enchant",
+							"count": {
+								"min": 0,
+								"max": 1
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"conditions": [
+				{
+					"condition": "killed_by_player_or_pets"
+				},
+				{
+					"condition": "random_chance_with_looting",
+					"chance": 0.1,
+					"looting_multiplier": 0.025
+				}
+			],
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "item",
+					"name": "resurge:rotten_flesh_plus",
+					"weight": 1,
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 0,
+								"max": 3
+							}
+						},
+						{
+							"function": "looting_enchant",
+							"count": {
+								"min": 0,
+								"max": 2
+							}
+						}
+					]
+				},
+				{
+					"type": "item",
+					"name": "resurge:zombie_leather",
+					"weight": 1,
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 0,
+								"max": 2
+							}
+						},
+						{
+							"function": "looting_enchant",
+							"count": {
+								"min": 0,
+								"max": 1
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"conditions": [
+				{
+					"condition": "killed_by_player_or_pets"
+				},
+				{
+					"condition": "random_chance_with_looting",
+					"chance": 0.025,
+					"looting_multiplier": 0.01
+				}
+			],
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "item",
+					"name": "resurge:red_energy_core",
+					"weight": 4
+				},
+				{
+					"type": "item",
+					"name": "resurge:zombie_brain",
+					"weight": 3
+				},
+				{
+					"type": "item",
+					"name": "resurge:zombie_body",
+					"weight": 1
+				}
+			]
+		},
+		{
+			"conditions": [
+				{
+					"condition": "killed_by_player_or_pets"
+				},
+				{
+					"condition": "random_chance",
+					"chance": 0.001
+				}
+			],
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "item",
+					"name": "minecraft:skull",
+					"weight": 2,
+					"functions": [
+						{
+							"function": "set_data",
+							"data": 2
+						}
+					]
+				},
+				{
+					"type": "item",
+					"name": "resurge:zombie_raged_spawn_egg",
+					"weight": 1
+				}
+			]
+		}
+	]
+}

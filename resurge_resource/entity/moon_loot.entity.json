@@ -1,0 +1,20 @@
+{
+	"format_version": "1.16.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "resurge_base:moon_loot",
+			"materials": {
+				"default": "entity_alphatest"
+			},
+			"geometry": {
+				"default": "geometry.dummy_entity"
+			},
+			"render_controllers": [
+				"controller.render.dummy_entity"
+			],
+			"textures": {
+				"default": "textures/entity/dummy_entity"
+			}
+		}
+	}
+}

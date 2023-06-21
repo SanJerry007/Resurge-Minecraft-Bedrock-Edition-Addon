@@ -1,0 +1,101 @@
+{
+	"individual_event_sounds": {
+		"events": {}
+	},
+
+	"entity_sounds": {
+		"entities": {
+			"skeleton": {
+				"volume": 1.0,
+				"pitch": [0.8, 1.2],
+				"events": {
+					"cast.spell": {
+						"sound": "beacon.power",
+						"volume": 1.0,
+						"pitch": [0.5, 1.0]
+					}
+				}
+			},
+
+			"resurge:zombie_raged": {
+				"pitch": [0.8, 1.2],
+				"volume": 1.0,
+				"events": {
+					"ambient": "mob.zombie_raged.say",
+					"death": "mob.zombie_raged.death",
+					"hurt": "mob.zombie_raged.hurt",
+					"step": {
+						"volume": 0.45,
+						"pitch": 1.0,
+						"sound": "mob.zombie.step"
+					}
+				}
+			},
+			"resurge:husk_raged": {
+				"volume": 1.0,
+				"pitch": [0.8, 1.2],
+				"events": {
+					"ambient": "mob.husk_raged.ambient",
+					"hurt": "mob.husk_raged.hurt",
+					"death": "mob.husk_raged.death",
+					"step": {
+						"volume": 0.35,
+						"pitch": 1.0,
+						"sound": "mob.husk.step"
+					}
+				}
+			},
+			"resurge:drowned_raged": {
+				"volume": 1.0,
+				"pitch": [0.8, 1.2],
+				"events": {
+					"ambient": "mob.drowned_raged.say",
+					"hurt": "mob.drowned_raged.hurt",
+					"death": "mob.drowned_raged.death",
+					"ambient.in.water": "mob.drowned_raged.say_water",
+					"hurt.in.water": "mob.drowned_raged.hurt_water",
+					"death.in.water": "mob.drowned_raged.death_water",
+					"step": "mob.drowned.step"
+				}
+			},
+			"resurge:skeleton_raged": {
+				"pitch": [0.8, 1.2],
+				"volume": 1.0,
+				"events": {
+					"ambient": "mob.skeleton_raged.say",
+					"hurt": {
+						"sound": "mob.skeleton_raged.hurt",
+						"volume": 0.7,
+						"pitch": 1.0
+					},
+					"death": "mob.skeleton_raged.death",
+					"step": {
+						"sound": "mob.skeleton.step",
+						"volume": 1.0,
+						"pitch": 1.0
+					},
+					"cast.spell": {
+						"sound": "beacon.power",
+						"volume": 1.0,
+						"pitch": [0.5, 1.0]
+					}
+				}
+			},
+
+			"resurge:thrown_thunder_trident": {
+				"volume": 1.0,
+				"pitch": [0.8, 1.2],
+				"events": {
+					"throw": "item.trident.throw",
+					"return": "item.trident.return",
+					"hit": "item.trident.hit",
+					"hit_ground": "item.trident.hit_ground",
+					"riptide1": "item.trident.riptide_1",
+					"riptide2": "item.trident.riptide_2",
+					"riptide3": "item.trident.riptide_3",
+					"thunder": "item.trident.thunder"
+				}
+			}
+		}
+	}
+}

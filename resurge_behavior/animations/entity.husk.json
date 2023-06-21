@@ -1,0 +1,22 @@
+{
+	"format_version": "1.16.0",
+	"animations": {
+		"animation.entity.husk.desertification": {
+			"loop": true,
+			"animation_length": 4.0,
+			"timeline": {
+				"0.00": [
+					"/execute if block ~~-1~ gravel run setblock ~~-1~ sand [\"sand_type\":\"normal\"] replace",
+					"/execute if block ~~-1~ dirt [\"dirt_type\":\"coarse\"] run setblock ~~-1~ gravel replace",
+                    "/execute if block ~~-1~ dirt_with_roots run setblock ~~-1~ dirt [\"dirt_type\":\"coarse\"] replace",
+                    "/execute if block ~~-1~ grass_path run setblock ~~-1~ dirt [\"dirt_type\":\"coarse\"] replace",
+					"/execute if block ~~-1~ dirt [\"dirt_type\":\"normal\"] run setblock ~~-1~ dirt [\"dirt_type\":\"coarse\"] replace",
+					"/execute if block ~~-1~ podzol run setblock ~~-1~ dirt [\"dirt_type\":\"coarse\"] replace",
+					"/execute if block ~~-1~ grass run setblock ~~-1~ dirt [\"dirt_type\":\"normal\"] replace",
+					"/execute if block ~~-1~ mud run setblock ~~-1~ dirt [\"dirt_type\":\"normal\"] replace",
+					"/execute if block ~~-1~ farmland run setblock ~~-1~ podzol [] replace"
+				]
+			}
+		}
+	}
+}
